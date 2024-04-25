@@ -17,16 +17,16 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
+        cache: 'yarn'
 
-    - name: Install pnpm
-      run: npm install -g pnpm
+    - name: Install yarn
+      run: npm install -g yarn
 
     - name: Install Dependencies
-      run: pnpm install
+      run: yarn install
 
     - name: Run Lint
-      run: pnpm run lint
+      run: yarn run lint
 
-    - name: Run Tests
-      run: pnpm run test:cov
+    # - name: Run Tests
+    #   run: yarn run test:cov

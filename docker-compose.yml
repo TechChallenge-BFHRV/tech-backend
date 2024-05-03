@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: sh -c "pnpm run start"
+    depends_on:
+      - database-db
+    networks:
+      - database-network
+
+  database-db:
+    image: 'bitnami/postgresql'
+    container_name: database-db
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=database
+    ports:
+      - 5432:5432
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+    networks:
+      - database-network
+
+volumes:
+  postgresql_data:
+    driver: local
+
+networks:
+  database-network:

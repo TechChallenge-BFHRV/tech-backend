@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Customer {
   id        Int      @id @default(autoincrement())
   email     String?  @unique
   name      String
@@ -47,10 +47,10 @@ model Order {
   name       String
   totalPrice Int
   items      OrderItems[]
-  userId     Int
+  customerId Int
   status     Int
   step       Int
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
-  User       User         @relation(fields: [userId], references: [id])
+  Customer   Customer     @relation(fields: [customerId], references: [id])
 }

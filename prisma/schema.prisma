@@ -24,6 +24,7 @@ model Item {
   description  String?
   imageUrl     String?
   price        Int
+  type         Type
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   OrderItems   OrderItems? @relation(fields: [orderItemsId], references: [id])
@@ -43,9 +44,32 @@ model Order {
   totalPrice Int
   items      OrderItems[]
   customerId Int
-  status     Int
-  step       Int
+  status     Status      
+  step       Step        
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   Customer   Customer     @relation(fields: [customerId], references: [id])
+}
+
+
+enum Status {
+  FINALIZADA
+  PRONTO
+  RECEBIDO
+  EM_PREPARACAO
+}
+
+enum Step {
+  INICIO
+  LANCHE
+  ACOMPANHAMENTO
+  BEBIDA
+  SOBREMESA
+}
+
+enum Type {
+  LANCHE
+  ACOMPANHAMENTO
+  BEBIDA
+  SOBREMESA
 }

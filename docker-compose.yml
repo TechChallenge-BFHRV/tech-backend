@@ -10,9 +10,7 @@ services:
       - 3000:3000
     volumes:
       - ./:/app
-    command: sh -c "npx prisma db push --schema='./prisma/schema.prisma' && npm run start:dev"
-    ports:
-      - 3000:3000
+    command: sh -c "npx prisma db push --schema='./prisma/schema.prisma' && npm run start:dev"   - 3000:3000
     depends_on:
       - database-db
     networks:

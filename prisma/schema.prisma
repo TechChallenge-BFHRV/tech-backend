@@ -40,15 +40,15 @@ model OrderItems {
 
 model Order {
   id         Int          @id @default(autoincrement())
-  name       String
-  totalPrice Int
+  name       String?
+  totalPrice Int?
   items      OrderItems[]
-  customerId Int
+  customerId Int?
   status     Status      
-  step       Step        
+  step       Step      
   createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  Customer   Customer     @relation(fields: [customerId], references: [id])
+  updatedAt  DateTime?     @updatedAt
+  Customer   Customer?     @relation(fields: [customerId], references: [id])
 }
 
 

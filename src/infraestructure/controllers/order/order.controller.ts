@@ -18,7 +18,9 @@ export class OrderController {
   }
 
   @Get()
-  findAll() {
-    return [1, 2, 3];
+  async findAll(@Res() response) {
+    const prisma = new PrismaClient();
+    const allOrders = await prisma.order.findMany();
+    return response.status(200).send(allOrders);
   }
 }

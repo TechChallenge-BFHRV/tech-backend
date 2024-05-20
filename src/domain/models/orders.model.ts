@@ -1,7 +1,7 @@
 import { OrderStatus } from '../../enums/order-status.enum';
 import { OrderStep } from '../../enums/order-step.enum';
 import OrderIdInvalidException from '../exceptions/order-id-invalid.exception';
-import type ItemModel from '../models/items.model';
+import type { ItemModel } from '../models/items.model';
 
 export default class OrderModel {
   private id: number | null;

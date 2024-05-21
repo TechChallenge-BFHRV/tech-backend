@@ -1,23 +1,28 @@
-import { Controller, Get, Post, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Query,
+  Res,
+} from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { FastifyReply } from 'fastify';
+import { CreateCustomerUseCase } from '../../../application/usecases/create-customer.usecase';
+import { CreateCustomerDTO } from '../../dto/create-customer.dto';
 
 @Controller('customer')
 export class CustomerController {
+  constructor(private createCustomerUseCase: CreateCustomerUseCase) {}
+
   @Post()
   async createCustomer(
     @Res() response: FastifyReply,
-    @Query('name') name: string,
-    @Query('cpf') cpf?: string,
+    @Body() customer: CreateCustomerDTO,
   ) {
-    const prisma = new PrismaClient();
-    const customer = await prisma.customer.create({
-      data: {
-        name: name,
-        cpf: cpf,
-      },
-    });
-    return response.status(201).send(customer);
+    const customerCreated = await this.createCustomerUseCase.execute(customer);
+    return response.status(HttpStatus.CREATED).send(customerCreated);
   }
 
   @Get('by-cpf')

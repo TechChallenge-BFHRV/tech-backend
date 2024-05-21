@@ -13,4 +13,4 @@ import { OrderController } from './controllers/order/order.controller';
   exports: [],
   controllers: [OrderController, CustomerController, ItemController],
 })
-export class InfraestructureModule {}
+export class InfrastructureModule {}

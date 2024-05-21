@@ -21,4 +21,13 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
       where: { cpf: cpf },
     });
   }
+
+  async setCustomerCpf(id: number, cpf: string): Promise<CustomerModel> {
+    return await this.prisma.customer.update({
+      where: { id: id },
+      data: {
+        cpf: cpf,
+      },
+    });
+  }
 }

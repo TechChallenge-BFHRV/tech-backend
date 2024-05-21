@@ -3,18 +3,24 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
+  Put,
   Query,
   Res,
 } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { FastifyReply } from 'fastify';
 import { CreateCustomerUseCase } from '../../../application/usecases/create-customer.usecase';
+import { SetCustomerCpfUseCase } from '../../../application/usecases/set-customer-cpf.usecase';
 import { CreateCustomerDTO } from '../../dto/create-customer.dto';
 
 @Controller('customer')
 export class CustomerController {
-  constructor(private createCustomerUseCase: CreateCustomerUseCase) {}
+  constructor(
+    private createCustomerUseCase: CreateCustomerUseCase,
+    private setCustomerCpfUseCase: SetCustomerCpfUseCase,
+  ) {}
 
   @Post()
   async createCustomer(
@@ -23,6 +29,19 @@ export class CustomerController {
   ) {
     const customerCreated = await this.createCustomerUseCase.execute(customer);
     return response.status(HttpStatus.CREATED).send(customerCreated);
+  }
+
+  @Put(':customerId')
+  async setCustomerCpf(
+    @Res() response: FastifyReply,
+    @Param('customerId') id: number,
+    @Body() customer: CreateCustomerDTO,
+  ) {
+    const customerUpdated = await this.setCustomerCpfUseCase.execute(
+      id,
+      customer.cpf,
+    );
+    return response.status(HttpStatus.ACCEPTED).send(customerUpdated);
   }
 
   @Get('by-cpf')

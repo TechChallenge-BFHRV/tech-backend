@@ -16,7 +16,7 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
     return createdCustomer;
   }
 
-  async findCustomerByCpf(cpf: string): Promise<CustomerModel> {
+  async getCustomerByCpf(cpf: string): Promise<CustomerModel> {
     return await this.prisma.customer.findUnique({
       where: { cpf: cpf },
     });

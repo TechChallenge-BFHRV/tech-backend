@@ -9,9 +9,9 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
 import { FastifyReply } from 'fastify';
 import { CreateCustomerUseCase } from '../../../application/usecases/create-customer.usecase';
+import { GetCustomerByCpfUseCase } from '../../../application/usecases/get-customer-by-cpf.usecase';
 import { SetCustomerCpfUseCase } from '../../../application/usecases/set-customer-cpf.usecase';
 import { CreateCustomerDTO } from '../../dto/create-customer.dto';
 
@@ -20,6 +20,7 @@ export class CustomerController {
   constructor(
     private createCustomerUseCase: CreateCustomerUseCase,
     private setCustomerCpfUseCase: SetCustomerCpfUseCase,
+    private getCustomerByCpfUseCase: GetCustomerByCpfUseCase,
   ) {}
 
   @Post()
@@ -49,15 +50,7 @@ export class CustomerController {
     @Res() response: FastifyReply,
     @Query('cpf') cpf: string,
   ) {
-    const prisma = new PrismaClient();
-    const customer = await prisma.customer.findUnique({
-      where: {
-        cpf: cpf,
-      },
-    });
-    if (!customer) {
-      return response.status(404).send(null);
-    }
-    return response.status(200).send(customer);
+    const customer = await this.getCustomerByCpfUseCase.execute(cpf);
+    return response.status(HttpStatus.OK).send(customer);
   }
 }

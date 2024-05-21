@@ -4,6 +4,7 @@ import { PrismaCustomerRepositoryAdapter } from '../infrastructure/repositories/
 import { PrismaItemRepositoryAdapter } from '../infrastructure/repositories/prisma.item.repository.adapter';
 import { CreateCustomerUseCase } from './usecases/create-customer.usecase';
 import { CreateItemUseCase } from './usecases/create-item.usecase';
+import { GetCustomerByCpfUseCase } from './usecases/get-customer-by-cpf.usecase';
 import { SetCustomerCpfUseCase } from './usecases/set-customer-cpf.usecase';
 
 @Module({
@@ -16,6 +17,7 @@ import { SetCustomerCpfUseCase } from './usecases/set-customer-cpf.usecase';
     CreateItemUseCase,
     CreateCustomerUseCase,
     SetCustomerCpfUseCase,
+    GetCustomerByCpfUseCase,
     {
       provide: 'ItemRepository',
       useClass: PrismaItemRepositoryAdapter,
@@ -25,6 +27,11 @@ import { SetCustomerCpfUseCase } from './usecases/set-customer-cpf.usecase';
       useClass: PrismaCustomerRepositoryAdapter,
     },
   ],
-  exports: [CreateItemUseCase, CreateCustomerUseCase, SetCustomerCpfUseCase],
+  exports: [
+    CreateItemUseCase,
+    CreateCustomerUseCase,
+    SetCustomerCpfUseCase,
+    GetCustomerByCpfUseCase,
+  ],
 })
 export class ApplicationModule {}

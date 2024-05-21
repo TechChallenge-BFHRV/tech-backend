@@ -10,7 +10,7 @@ services:
       - 3000:3000
     volumes:
       - ./:/app
-    command: sh -c "npx prisma db push --schema='./prisma/schema.prisma' && npm run start:dev"   - 3000:3000
+    command: sh -c "npx prisma db push --schema='./prisma/schema.prisma' --accept-data-loss && npx prisma db seed && npm run start:dev"   - 3000:3000
     depends_on:
       - database-db
     networks:
@@ -24,7 +24,7 @@ services:
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=techchallenge
     ports:
-      - 5432:5432
+      - 5434:5432
     volumes:
       - 'postgresql_data:/bitnami/postgresql'
     networks:

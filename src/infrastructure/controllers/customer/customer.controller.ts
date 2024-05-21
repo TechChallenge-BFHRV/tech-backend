@@ -36,12 +36,9 @@ export class CustomerController {
   async setCustomerCpf(
     @Res() response: FastifyReply,
     @Param('customerId') id: number,
-    @Body() customer: CreateCustomerDTO,
+    @Query('cpf') cpf: string,
   ) {
-    const customerUpdated = await this.setCustomerCpfUseCase.execute(
-      id,
-      customer.cpf,
-    );
+    const customerUpdated = await this.setCustomerCpfUseCase.execute(id, cpf);
     return response.status(HttpStatus.ACCEPTED).send(customerUpdated);
   }
 

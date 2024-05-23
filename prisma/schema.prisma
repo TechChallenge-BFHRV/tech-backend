@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
 }
 
@@ -19,38 +19,38 @@ model Customer {
 }
 
 model Item {
-  id           Int         @id @default(autoincrement())
-  name         String      @unique
-  description  String?
-  imageUrl     String?
-  price        Int
-  category     ItemCategory
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  OrderItems   OrderItems? @relation(fields: [orderItemsId], references: [id])
-  orderItemsId Int?
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  description String?
+  imageUrl    String?
+  price       Int
+  category    ItemCategory
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  orderItems  OrderItems[]
 }
 
 model OrderItems {
-  id      Int    @id @default(autoincrement())
-  items   Item[]
-  Order   Order? @relation(fields: [orderId], references: [id])
-  orderId Int?
+  id      Int @id @default(autoincrement())
+  orderId Int
+  itemId  Int
+
+  Order Order @relation(fields: [orderId], references: [id])
+  Item  Item  @relation(fields: [itemId], references: [id])
 }
 
 model Order {
   id         Int          @id @default(autoincrement())
   name       String?
   totalPrice Int?
-  items      OrderItems[]
-  customerId Int?
-  status     Status      
-  step       Step      
-  createdAt  DateTime     @default(now())
+  status     Status
+  step       Step
+  createdAt  DateTime?     @default(now())
   updatedAt  DateTime?     @updatedAt
+  customerId Int?
   Customer   Customer?     @relation(fields: [customerId], references: [id])
+  orderItems OrderItems[]
 }
-
 
 enum Status {
   STARTED

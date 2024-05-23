@@ -20,6 +20,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
 import { AppModule } from './app.module';
 import { PROJECT_DESCRIPTION, PROJECT_NAME, PROJECT_VERSION } from './config';
+import HttpExceptionFilter from './infrastructure/exceptions/http-exception.filter';
 
 const DEFAULT_PORT = 3000;
 const DEFAULT_API_PREFIX = '/api';
@@ -101,6 +102,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(
     new ClassSerializerInterceptor(app.get<Reflector>(Reflector)),
   );
+  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(process.env.PORT || DEFAULT_PORT, '0.0.0.0');
   logger.log(`Application is running on: ${await app.getUrl()}`);
 }

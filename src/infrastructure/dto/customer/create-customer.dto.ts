@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
-import { CustomerModel } from '../../domain/models/customers.model';
+import { CustomerModel } from '../../../domain/models/customers.model';
 export class CreateCustomerDTO implements CustomerModel {
   orders?: number[];
   id: number;

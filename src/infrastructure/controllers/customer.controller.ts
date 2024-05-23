@@ -10,10 +10,10 @@ import {
   Res,
 } from '@nestjs/common';
 import { FastifyReply } from 'fastify';
-import { CreateCustomerUseCase } from '../../../application/usecases/create-customer.usecase';
-import { GetCustomerByCpfUseCase } from '../../../application/usecases/get-customer-by-cpf.usecase';
-import { SetCustomerCpfUseCase } from '../../../application/usecases/set-customer-cpf.usecase';
-import { CreateCustomerDTO } from '../../dto/create-customer.dto';
+import { CreateCustomerUseCase } from '../../application/usecases/customers/create-customer.usecase';
+import { GetCustomerByCpfUseCase } from '../../application/usecases/customers/get-customer-by-cpf.usecase';
+import { SetCustomerCpfUseCase } from '../../application/usecases/customers/set-customer-cpf.usecase';
+import { CreateCustomerDTO } from '../dto/customer/create-customer.dto';
 
 @Controller('customer')
 export class CustomerController {

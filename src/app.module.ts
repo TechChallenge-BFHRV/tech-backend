@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { InfrastructureModule } from './infrastructure/infrastructure.module';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), InfrastructureModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), ApplicationModule],
   controllers: [],
   providers: [],
 })

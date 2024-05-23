@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { ItemModel } from '../../domain/models/items.model';
-import { ItemRepositoryPort } from '../../domain/repositories/item.repository.port';
+import { ItemModel } from '../../../domain/models/items.model';
+import { ItemRepositoryPort } from '../../../domain/ports/item.repository.port';
 
 @Injectable()
 export class PrismaItemRepositoryAdapter implements ItemRepositoryPort {

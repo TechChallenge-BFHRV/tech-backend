@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
 import { CustomerModel } from '../../../domain/models/customers.model';
 import { CustomerRepositoryPort } from '../../../domain/ports/customer.repository.port';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(customer: CustomerModel): Promise<CustomerModel> {
     const createdCustomer = await this.prisma.customer.create({

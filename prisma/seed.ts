@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { PrismaService } from '../src/infrastructure/adapters/prisma.service';
+const prisma = new PrismaService();
 async function main() {
   const coca = await prisma.item.upsert({
     where: { name: 'Coca-Cola' },

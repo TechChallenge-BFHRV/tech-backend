@@ -10,7 +10,7 @@ services:
       - 3000:3000
     volumes:
       - ./:/app
-    command: sh -c "npx prisma migrate deploy && npx prisma db seed && npm run start:dev"   - 3000:3000
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run start:dev"   - 3000:3000
     depends_on:
       - database-db
     networks:

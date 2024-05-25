@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { OrderItems, Status, Step } from '@prisma/client';
 import { IsString } from 'class-validator';
 import { OrderModel } from '../../../domain/models/orders.model';
-import { ItemModel } from 'src/domain/models/items.model';
-import { OrderItems, Status, Step } from '@prisma/client';
 
 export class CreateOrderDTO implements OrderModel {
   id: number;

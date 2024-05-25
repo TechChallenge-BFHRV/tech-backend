@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { Status, Step } from '@prisma/client';
 import { OrderModel } from '../../../domain/models/orders.model';
 import { OrderRepositoryPort } from '../../../domain/ports/order.repository.port';
 import { IUseCase } from '../usecase';
-import { Status, Step } from '@prisma/client';
 
 @Injectable()
 export class CreateOrderUseCase implements IUseCase<OrderModel> {

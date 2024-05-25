@@ -9,6 +9,7 @@ async function main() {
       description: 'Refrigerante Coca-Cola em garrafa PET com 600ml',
       price: 10,
       category: 'BEBIDA',
+      preparationTime: 20,
     },
   });
   const sprite = await prisma.item.upsert({
@@ -19,6 +20,7 @@ async function main() {
       description: 'Refrigerante Sprite em garrafa PET com 600ml',
       price: 10,
       category: 'BEBIDA',
+      preparationTime: 20,
     },
   });
   const hamburger = await prisma.item.upsert({
@@ -30,6 +32,7 @@ async function main() {
         '180g de carne com queijo, alface e tomate dentro do pão selado',
       price: 20,
       category: 'LANCHE',
+      preparationTime: 600,
     },
   });
   const coxinha = await prisma.item.upsert({
@@ -41,6 +44,7 @@ async function main() {
         '180g de frango temperado da casa envolta em massa de mandioquinha empanada e frita',
       price: 16,
       category: 'LANCHE',
+      preparationTime: 300,
     },
   });
   const fritas = await prisma.item.upsert({
@@ -51,6 +55,7 @@ async function main() {
       description: 'Batatas fritas sequinhas e crocantes',
       price: 12,
       category: 'ACOMPANHAMENTO',
+      preparationTime: 300,
     },
   });
   const pudim = await prisma.item.upsert({
@@ -62,6 +67,7 @@ async function main() {
         'Sobremesa feita na casa com leite condensado artesanal mineiro',
       price: 15,
       category: 'SOBREMESA',
+      preparationTime: 300,
     },
   });
 }

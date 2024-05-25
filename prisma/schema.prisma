@@ -24,6 +24,7 @@ model Item {
   description String?
   imageUrl    String?
   price       Int
+  preparationTime Int
   category    ItemCategory
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt

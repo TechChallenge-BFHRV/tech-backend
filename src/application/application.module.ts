@@ -1,12 +1,15 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { InfrastructureModule } from '../infrastructure/infrastructure.module';
 import { CustomerController } from './controllers/customer.controller';
+import { ItemController } from './controllers/item.controller';
 import { OrderController } from './controllers/order.controller';
 import {
   CreateCustomerUseCase,
-  GetCustomerByCpfUseCase,
-  SetCustomerCpfUseCase,
+  CreateItemUseCase,
   CreateOrderUseCase,
+  GetCustomerByCpfUseCase,
+  GetItemUseCase,
+  SetCustomerCpfUseCase,
 } from './usecases';
 
 @Module({
@@ -15,14 +18,18 @@ import {
     CreateCustomerUseCase,
     SetCustomerCpfUseCase,
     GetCustomerByCpfUseCase,
+    GetItemUseCase,
+    CreateItemUseCase,
     CreateOrderUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
     SetCustomerCpfUseCase,
     GetCustomerByCpfUseCase,
+    GetItemUseCase,
+    CreateItemUseCase,
     CreateOrderUseCase,
   ],
-  controllers: [CustomerController, OrderController],
+  controllers: [CustomerController, ItemController, OrderController],
 })
 export class ApplicationModule {}

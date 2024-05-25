@@ -1,6 +1,4 @@
 import { OrderItems, Status, Step } from '@prisma/client';
-import OrderIdInvalidException from '../exceptions/order-id-invalid.exception';
-import type { ItemModel } from '../models/items.model';
 
 export class OrderModel {
   id: number | null;

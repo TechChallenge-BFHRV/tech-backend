@@ -27,8 +27,10 @@ export class CreateItemDTO implements ItemModel {
   @IsEnum(ItemCategory)
   category: ItemCategory;
 
+  @ApiProperty()
+  @IsNumber()
+  preparationTime: number;
+
   @ApiPropertyOptional()
   imageUrl?: string;
 }
-
-// CONTROLLER -> DTO -> USECASE -> REPOSITORY -> ADAPTER -> PRISMA -> DATABASE

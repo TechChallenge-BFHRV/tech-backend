@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from './adapters/prisma.service';
 import { PrismaCustomerRepositoryAdapter } from './adapters/repository/customer.prisma.repository.adapter';
+import { PrismaItemRepositoryAdapter } from './adapters/repository/item.prisma.repository.adapter';
 import { PrismaOrderRepositoryAdapter } from './adapters/repository/order.prisma.repository.adapter';
 
 @Module({
@@ -10,7 +11,10 @@ import { PrismaOrderRepositoryAdapter } from './adapters/repository/order.prisma
       provide: 'CustomerRepositoryPort',
       useClass: PrismaCustomerRepositoryAdapter,
     },
-    PrismaService,
+    {
+      provide: 'ItemRepositoryPort',
+      useClass: PrismaItemRepositoryAdapter,
+    },
     {
       provide: 'OrderRepositoryPort',
       useClass: PrismaOrderRepositoryAdapter,
@@ -22,7 +26,10 @@ import { PrismaOrderRepositoryAdapter } from './adapters/repository/order.prisma
       provide: 'CustomerRepositoryPort',
       useClass: PrismaCustomerRepositoryAdapter,
     },
-    PrismaService,
+    {
+      provide: 'ItemRepositoryPort',
+      useClass: PrismaItemRepositoryAdapter,
+    },
     {
       provide: 'OrderRepositoryPort',
       useClass: PrismaOrderRepositoryAdapter,

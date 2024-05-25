@@ -4,9 +4,11 @@ import { CustomerController } from './controllers/customer.controller';
 import { ItemController } from './controllers/item.controller';
 import { OrderController } from './controllers/order.controller';
 import {
+  AddItemToOrderUseCase,
   CreateCustomerUseCase,
   CreateItemUseCase,
   CreateOrderUseCase,
+  GetAllOrdersUseCase,
   GetCustomerByCpfUseCase,
   GetItemUseCase,
   SetCustomerCpfUseCase,
@@ -21,6 +23,8 @@ import {
     GetItemUseCase,
     CreateItemUseCase,
     CreateOrderUseCase,
+    AddItemToOrderUseCase,
+    GetAllOrdersUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -29,6 +33,8 @@ import {
     GetItemUseCase,
     CreateItemUseCase,
     CreateOrderUseCase,
+    AddItemToOrderUseCase,
+    GetAllOrdersUseCase,
   ],
   controllers: [CustomerController, ItemController, OrderController],
 })

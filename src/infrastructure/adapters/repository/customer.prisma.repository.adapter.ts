@@ -36,7 +36,7 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
   update(id: string, data: CustomerModel): Promise<CustomerModel> {
     throw new Error('Method not implemented.');
   }
-  getById(id: string): Promise<CustomerModel> {
+  getById(id: number): Promise<CustomerModel> {
     throw new Error('Method not implemented.');
   }
   getAll(): Promise<CustomerModel[]> {

@@ -1,14 +1,16 @@
-import { OrderItems, Status, Step } from '@prisma/client';
+import { Status, Step } from '@prisma/client';
+import { OrderItemModel } from './order-items.model';
 
 export class OrderModel {
   id: number | null;
   name: string;
   totalPrice: number;
-  orderItems?: OrderItems[];
+  orderItems?: OrderItemModel[];
   customerId?: number;
   status: Status;
   step: Step;
   createdAt: Date;
+  updatedAt: Date;
 
   constructor(id: number, name: string) {
     this.id = id || null;

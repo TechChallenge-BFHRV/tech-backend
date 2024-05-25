@@ -26,7 +26,7 @@ export class PrismaItemRepositoryAdapter implements ItemRepositoryPort {
   update(id: string, data: ItemModel): Promise<ItemModel> {
     throw new Error('Method not implemented.');
   }
-  getById(id: string): Promise<ItemModel> {
+  getById(id: number): Promise<ItemModel> {
     throw new Error('Method not implemented.');
   }
   getAll(): Promise<ItemModel[]> {

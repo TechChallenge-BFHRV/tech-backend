@@ -11,6 +11,8 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
     const createdCustomer = await this.prisma.customer.create({
       data: {
         name: customer.name,
+        email: customer.email,
+        cpf: customer.cpf,
       },
     });
     return createdCustomer;

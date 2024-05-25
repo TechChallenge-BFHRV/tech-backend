@@ -1,58 +1,22 @@
-import { OrderStatus } from '../enums/order-status.enum';
-import { OrderStep } from '../enums/order-step.enum';
+import { OrderItems, Status, Step } from '@prisma/client';
 import OrderIdInvalidException from '../exceptions/order-id-invalid.exception';
 import type { ItemModel } from '../models/items.model';
 
-export default class OrderModel {
-  private id: number | null;
-  private readonly name: string;
-  private readonly totalPrice: number;
-  private items: ItemModel[];
-  private userId?: number;
-  private status: OrderStatus;
-  private step: OrderStep;
-  private createdAt: Date;
+export class OrderModel {
+  id: number | null;
+  name: string;
+  totalPrice: number;
+  orderItems?: OrderItems[];
+  customerId?: number;
+  status: Status;
+  step: Step;
+  createdAt: Date;
 
   constructor(id: number, name: string) {
     this.id = id || null;
     this.name = name;
     this.totalPrice = this.totalPrice;
-    this.items = [];
-    this.status = OrderStatus.STARTED;
-    this.validateOrder();
-  }
-
-  public validateOrder(): void {
-    if (!this.id || typeof this.id !== 'number') {
-      throw new OrderIdInvalidException('Order ID is invalid');
-    }
-  }
-
-  public getName(): string {
-    return this.name;
-  }
-
-  public getId(): number {
-    return this.id;
-  }
-
-  public setCreatedAt(createdAt: Date): this {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-  public setStatus(status: OrderStatus): this {
-    this.status = status;
-    return this;
-  }
-
-  public setStep(step: OrderStep): this {
-    this.step = step;
-    return this;
-  }
-
-  public setUserId(id: number): this {
-    this.userId = id;
-    return this;
+    this.status = null;
+    this.step = null;
   }
 }

@@ -35,8 +35,8 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     return updatedOrder;
   }
 
-  getById(id: number): Promise<OrderModel> {
-    const orders = this.prisma.order.findUnique({
+  async getById(id: number): Promise<OrderModel> {
+    const orders = await this.prisma.order.findUnique({
       where: { id: id },
       include: {
         orderItems: {

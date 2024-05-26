@@ -22,8 +22,14 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
       throw new Error('Order must be in STARTED status to create a checkout');
     }
 
+    if (order.orderItems.some((item) => item.isActive) === false) {
+      throw new Error('Order must have at least one item to create a checkout');
+    }
     checkoutRequest.customerId = order.customerId;
     checkoutRequest.status = 'PENDING';
+    order.status = 'PENDING';
+
+    await this.orderRepository.update(order.id, order);
 
     const createdCheckout =
       await this.checkoutRepository.create(checkoutRequest);
@@ -31,7 +37,7 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
     const paymentSucceed = await this.paymentGateway.execute(order.finalPrice);
 
     if (paymentSucceed) {
-      order.status = 'PENDING';
+      order.status = 'APPROVED';
       createdCheckout.status = 'APPROVED';
     } else {
       order.status = 'STARTED';

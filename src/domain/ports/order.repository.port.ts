@@ -3,5 +3,5 @@ import { OrderModel } from '../models/orders.model';
 import { Repository } from './repository';
 
 export interface OrderRepositoryPort extends Repository<OrderModel> {
-  orderStepForward(id: number, step: Step): Promise<OrderModel>;
+  orderStepUpdate(id: number, step: Step): Promise<OrderModel>;
 }

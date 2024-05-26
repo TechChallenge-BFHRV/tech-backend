@@ -65,8 +65,7 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     throw new Error('Method not implemented.');
   }
 
-  async orderStepForward(id: number, step: Step): Promise<OrderModel> {
-    console.log('now calling order step forward...', id, step);
+  async orderStepUpdate(id: number, step: Step): Promise<OrderModel> {
     const order = await this.prisma.order.update({
       where: { id: id },
       data: {

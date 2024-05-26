@@ -39,6 +39,7 @@ export class OrderController {
         id: el.id,
         totalPrice: el.totalPrice,
         status: el.status,
+        step: el.step,
         createdAt: el.createdAt,
         updatedAt: el.updatedAt,
         customerId: el.customerId,

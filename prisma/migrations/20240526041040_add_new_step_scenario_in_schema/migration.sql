@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "Step" ADD VALUE 'SIDE_DISH';

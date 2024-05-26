@@ -54,7 +54,6 @@ model Order {
   customerId      Int?
   Customer        Customer?    @relation(fields: [customerId], references: [id])
   orderItems      OrderItems[]
-  Checkout        Checkout[]
 }
 
 model Checkout {
@@ -86,6 +85,7 @@ enum Step {
   START
   MEAL
   DRINK
+  SIDE_DISH
   DESERT
   CHECKOUT
   PAYMENT_REQUEST

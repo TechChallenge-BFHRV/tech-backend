@@ -6,6 +6,8 @@ import {
   AddItemToOrderUseCase,
   GetAllOrdersUseCase,
   GetCartOrderUseCase,
+  OrderStepBackwardUseCase,
+  OrderStepForwardUseCase,
 } from '../usecases';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
 
@@ -17,6 +19,8 @@ export class OrderController {
     private readonly addItemToOrderUseCase: AddItemToOrderUseCase,
     private readonly getAllOrdersUseCase: GetAllOrdersUseCase,
     private readonly getCartOrderUseCase: GetCartOrderUseCase,
+    private readonly orderStepForwardUseCase: OrderStepForwardUseCase,
+    private readonly orderStepBackwardUseCase: OrderStepBackwardUseCase,
   ) {}
 
   @Get()
@@ -37,6 +41,7 @@ export class OrderController {
         id: el.id,
         totalPrice: el.totalPrice,
         status: el.status,
+        step: el.step,
         createdAt: el.createdAt,
         updatedAt: el.updatedAt,
         customerId: el.customerId,
@@ -111,5 +116,33 @@ export class OrderController {
         }),
       },
     };
+  }
+
+  @Post(':orderId/step-forward')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Step advanced successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Failed to advance step.',
+  })
+  async orderStepForward(@Param('orderId') orderId: number) {
+    const updatedOrder = await this.orderStepForwardUseCase.execute(orderId);
+    return updatedOrder;
+  }
+
+  @Post(':orderId/step-backward')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Step receded successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Failed to recede step.',
+  })
+  async orderStepBackward(@Param('orderId') orderId: number) {
+    const updatedOrder = await this.orderStepBackwardUseCase.execute(orderId);
+    return updatedOrder;
   }
 }

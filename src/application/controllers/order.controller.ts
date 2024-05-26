@@ -45,7 +45,9 @@ export class OrderController {
         createdAt: el.createdAt,
         updatedAt: el.updatedAt,
         customerId: el.customerId,
-        items: el.orderItems.map((orderItem) => orderItem.Item),
+        items: el?.orderItems?.map((orderItem) => {
+          return { orderItemId: orderItem.id, ...orderItem.Item };
+        }),
       })),
     };
   }
@@ -109,7 +111,9 @@ export class OrderController {
         createdAt: orderCreated.createdAt,
         updatedAt: orderCreated.updatedAt,
         customerId: orderCreated.customerId,
-        items: orderCreated?.orderItems?.map((orderItem) => orderItem.Item),
+        items: orderCreated?.orderItems?.map((orderItem) => {
+          return { orderItemId: orderItem.id, ...orderItem.Item };
+        }),
       },
     };
   }

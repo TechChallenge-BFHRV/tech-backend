@@ -99,6 +99,7 @@ export class OrderController {
         id: orderCreated.id,
         totalPrice: orderCreated.totalPrice,
         finalPrice: orderCreated.finalPrice,
+        preparationTime: orderCreated.totalPreparationTime,
         status: orderCreated.status,
         createdAt: orderCreated.createdAt,
         updatedAt: orderCreated.updatedAt,

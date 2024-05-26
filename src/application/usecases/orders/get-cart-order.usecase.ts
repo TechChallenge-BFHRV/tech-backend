@@ -17,6 +17,7 @@ export class GetCartOrderUseCase implements IUseCase<OrderModel> {
     }
 
     order = await this.calculateFinalPrice(order);
+    order = await this.calculatePreparationTime(order);
 
     return order;
   }
@@ -33,20 +34,27 @@ export class GetCartOrderUseCase implements IUseCase<OrderModel> {
 
     const discountedPrice = totalPrice * (1 - comboDiscount);
 
-    // Assuming the final price is stored in a property named `finalPrice`
     order.finalPrice = Math.round(discountedPrice * 100) / 100;
+
+    return order;
+  }
+
+  async calculatePreparationTime(order: OrderModel): Promise<OrderModel> {
+    const preparationTime = order.orderItems.reduce(
+      (acc, item) => item.Item.preparationTime + acc,
+      0,
+    );
+
+    order.totalPreparationTime = preparationTime;
 
     return order;
   }
 
   async getComboDiscount(order: OrderModel): Promise<number> {
     const minimumComboCategory = 3;
-    const maxDiscount = 0.15; // Maximum 15% discount
-    const discountPerCombo = 0.05; // 5% discount per combo
+    const maxDiscount = 0.15;
+    const discountPerCombo = 0.05;
 
-    // combo have 3 items of different types, need to check if the order has 3 different items and then apply cumulative 5% discount for every combo
-
-    // count the number of types item in the order.OrderItems.Item
     const groupedCategory = order.orderItems.reduce((acc, orderItem) => {
       if (!acc[orderItem.Item.category]) {
         acc[orderItem.Item.category] = 0;
@@ -64,7 +72,6 @@ export class GetCartOrderUseCase implements IUseCase<OrderModel> {
 
     const categoryCounts: number[] = Object.values(groupedCategory);
 
-    // Calculate the number of complete combos
     let comboCount = 0;
     while (
       categoryCounts.filter((count) => count > 0).length >= minimumComboCategory
@@ -77,7 +84,6 @@ export class GetCartOrderUseCase implements IUseCase<OrderModel> {
       }
     }
 
-    // Calculate total discount, capped at the maximum discount
     const totalDiscount = Math.min(comboCount * discountPerCombo, maxDiscount);
 
     return totalDiscount;

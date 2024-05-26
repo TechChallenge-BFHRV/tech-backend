@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Step } from '@prisma/client';
+import { Status, Step } from '@prisma/client';
 import { OrderModel } from '../../../domain/models/orders.model';
 import { OrderRepositoryPort } from '../../../domain/ports/order.repository.port';
 import { PrismaService } from '../prisma.service';
@@ -73,5 +73,14 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
       },
     });
     return order;
+  }
+
+  async getOrdersByStatus(status: Status): Promise<OrderModel[]> {
+    const orders = await this.prisma.order.findMany({
+      where: {
+        status: status,
+      },
+    });
+    return orders;
   }
 }

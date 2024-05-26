@@ -8,5 +8,6 @@ export * from './order-items/set-item.usecase';
 export * from './orders/create-order-usecase';
 export * from './orders/get-all-orders.usecase';
 export * from './orders/get-cart-order.usecase';
+export * from './orders/get-orders-by-status.usecase';
 export * from './orders/step-backward-order.usecase';
 export * from './orders/step-forward-order.usecase';

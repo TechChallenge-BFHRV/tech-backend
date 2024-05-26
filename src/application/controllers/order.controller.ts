@@ -9,12 +9,14 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Status } from '@prisma/client';
 import { AddItemToOrderDTO } from '../../infrastructure/dto/order-item/add-item-to-order-dto';
 import { CreateOrderDTO } from '../../infrastructure/dto/order/create-order-dto';
 import {
   AddItemToOrderUseCase,
   GetAllOrdersUseCase,
   GetCartOrderUseCase,
+  GetOrdersByStatusUseCase,
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
 } from '../usecases';
@@ -32,6 +34,7 @@ export class OrderController {
     private readonly getCartOrderUseCase: GetCartOrderUseCase,
     private readonly orderStepForwardUseCase: OrderStepForwardUseCase,
     private readonly orderStepBackwardUseCase: OrderStepBackwardUseCase,
+    private readonly getOrdersByStatusUseCase: GetOrdersByStatusUseCase,
   ) {}
 
   @Get()
@@ -174,5 +177,24 @@ export class OrderController {
   async orderStepBackward(@Param('orderId') orderId: number) {
     const updatedOrder = await this.orderStepBackwardUseCase.execute(orderId);
     return updatedOrder;
+  }
+
+  @Get('status/:orderStatus')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Orders succesffully retrieved by status.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async getOrdersByStatus(@Param('orderStatus') orderStatus: Status) {
+    const orders = await this.getOrdersByStatusUseCase.execute(orderStatus);
+    return {
+      statusCode: HttpStatus.OK,
+      message: `Orders succesffully retrieved by status ${orderStatus}.`,
+      amountOfOrders: orders.length,
+      data: orders,
+    };
   }
 }

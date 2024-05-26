@@ -60,7 +60,7 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     });
     return orders;
   }
-  delete(id: string): Promise<void> {
+  delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

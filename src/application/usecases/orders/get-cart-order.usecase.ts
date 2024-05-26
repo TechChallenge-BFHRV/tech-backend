@@ -45,7 +45,7 @@ export class GetCartOrderUseCase implements IUseCase<OrderModel> {
       0,
     );
 
-    order.totalPreparationTime = preparationTime;
+    order.preparationTime = preparationTime;
 
     return order;
   }

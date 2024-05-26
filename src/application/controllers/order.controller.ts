@@ -99,12 +99,12 @@ export class OrderController {
         id: orderCreated.id,
         totalPrice: orderCreated.totalPrice,
         finalPrice: orderCreated.finalPrice,
-        preparationTime: orderCreated.totalPreparationTime,
+        preparationTime: orderCreated.preparationTime,
         status: orderCreated.status,
         createdAt: orderCreated.createdAt,
         updatedAt: orderCreated.updatedAt,
         customerId: orderCreated.customerId,
-        items: orderCreated.orderItems.map((orderItem) => orderItem.Item),
+        items: orderCreated?.orderItems?.map((orderItem) => orderItem.Item),
       },
     };
   }

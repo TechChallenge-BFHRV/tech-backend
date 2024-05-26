@@ -12,7 +12,7 @@ export class OrderModel {
   createdAt: Date;
   updatedAt: Date;
   finalPrice?: number;
-  totalPreparationTime?: number;
+  preparationTime?: number;
 
   constructor(id: number, name: string) {
     this.id = id || null;

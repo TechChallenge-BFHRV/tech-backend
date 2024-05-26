@@ -19,6 +19,8 @@ export class GetCartOrderUseCase implements IUseCase<OrderModel> {
     order = await this.calculateFinalPrice(order);
     order = await this.calculatePreparationTime(order);
 
+    await this.orderRepository.update(order.id, order);
+
     return order;
   }
 

@@ -20,7 +20,19 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
   }
 
   update(id: number, data: OrderModel): Promise<OrderModel> {
-    throw new Error('Method not implemented.');
+    const updatedOrder = this.prisma.order.update({
+      where: { id: data.id },
+      data: {
+        name: data.name,
+        totalPrice: data.totalPrice,
+        status: data.status,
+        step: data.step,
+        preparationTime: data.preparationTime,
+        finalPrice: data.finalPrice,
+        customerId: data.customerId,
+      },
+    });
+    return updatedOrder;
   }
 
   getById(id: number): Promise<OrderModel> {

@@ -12,6 +12,7 @@ import {
   GetCustomerByCpfUseCase,
   GetItemUseCase,
   SetCustomerCpfUseCase,
+  SetItemToOrderUseCase,
 } from './usecases';
 
 @Module({
@@ -25,6 +26,7 @@ import {
     CreateOrderUseCase,
     AddItemToOrderUseCase,
     GetAllOrdersUseCase,
+    SetItemToOrderUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -35,6 +37,7 @@ import {
     CreateOrderUseCase,
     AddItemToOrderUseCase,
     GetAllOrdersUseCase,
+    SetItemToOrderUseCase,
   ],
   controllers: [CustomerController, ItemController, OrderController],
 })

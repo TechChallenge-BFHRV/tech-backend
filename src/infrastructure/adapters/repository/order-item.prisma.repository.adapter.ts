@@ -13,9 +13,18 @@ export class PrismaOrderItemRepositoryAdapter
       data: {
         orderId: orderItem.orderId,
         itemId: orderItem.itemId,
+        isActive: orderItem.isActive,
       },
     });
     return createdOrderItem;
+  }
+  async setOrderItemId(orderItemId: number): Promise<OrderItemModel> {
+    return await this.prisma.orderItems.update({
+      where: { id: orderItemId },
+      data: {
+        isActive: false,
+      },
+    });
   }
 
   update(id: string, data: OrderItemModel): Promise<OrderItemModel> {

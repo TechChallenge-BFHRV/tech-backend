@@ -19,9 +19,10 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     return createdOrder;
   }
 
-  update(id: string, data: OrderModel): Promise<OrderModel> {
+  update(id: number, data: OrderModel): Promise<OrderModel> {
     throw new Error('Method not implemented.');
   }
+
   getById(id: number): Promise<OrderModel> {
     const orders = this.prisma.order.findUnique({
       where: { id: id },

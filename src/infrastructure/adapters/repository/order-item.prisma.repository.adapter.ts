@@ -18,7 +18,7 @@ export class PrismaOrderItemRepositoryAdapter
     return createdOrderItem;
   }
 
-  update(id: string, data: OrderItemModel): Promise<OrderItemModel> {
+  update(id: number, data: OrderItemModel): Promise<OrderItemModel> {
     throw new Error('Method not implemented.');
   }
   getById(id: number): Promise<OrderItemModel> {
@@ -27,7 +27,7 @@ export class PrismaOrderItemRepositoryAdapter
   getAll(): Promise<OrderItemModel[]> {
     throw new Error('Method not implemented.');
   }
-  delete(id: string): Promise<void> {
+  delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

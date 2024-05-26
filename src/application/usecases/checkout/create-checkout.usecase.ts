@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { Status } from '@prisma/client';
 import { CheckoutModel } from '../../../domain/models/checkout.model';
 import { CheckoutRepositoryPort } from '../../../domain/ports/checkout.repository.port';
 import { OrderRepositoryPort } from '../../../domain/ports/order.repository.port';
@@ -27,7 +28,7 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
     }
     checkoutRequest.customerId = order.customerId;
     checkoutRequest.status = 'PENDING';
-    order.status = 'PENDING';
+    order.status = Status.PENDING;
 
     await this.orderRepository.update(order.id, order);
 
@@ -37,10 +38,10 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
     const paymentSucceed = await this.paymentGateway.execute(order.finalPrice);
 
     if (paymentSucceed) {
-      order.status = 'APPROVED';
+      order.status = Status.APPROVED;
       createdCheckout.status = 'APPROVED';
     } else {
-      order.status = 'STARTED';
+      order.status = Status.STARTED;
       createdCheckout.status = 'REJECTED';
     }
 

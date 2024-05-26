@@ -114,7 +114,7 @@ export class OrderController {
 
   @Post(':orderId/step-forward')
   @ApiResponse({
-    status: HttpStatus.CREATED,
+    status: HttpStatus.OK,
     description: 'Step advanced successfully.',
   })
   @ApiResponse({

@@ -1,19 +1,16 @@
-
 import {
   Body,
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
   Put,
   Query,
-  Param
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AddItemToOrderDTO } from '../../infrastructure/dto/order-item/add-item-to-order-dto';
 import { CreateOrderDTO } from '../../infrastructure/dto/order/create-order-dto';
-import { AddItemToOrderUseCase, GetAllOrdersUseCase } from '../usecases';
-import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
 import {
   AddItemToOrderUseCase,
   GetAllOrdersUseCase,
@@ -21,6 +18,7 @@ import {
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
 } from '../usecases';
+import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
 
 @ApiTags('order')

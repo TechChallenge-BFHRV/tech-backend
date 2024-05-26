@@ -1,5 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { InfrastructureModule } from '../infrastructure/infrastructure.module';
+import { checkoutController as CheckoutController } from './controllers/checkout.controller';
 import { CustomerController } from './controllers/customer.controller';
 import { ItemController } from './controllers/item.controller';
 import { OrderController } from './controllers/order.controller';
@@ -14,6 +15,7 @@ import {
   GetItemUseCase,
   SetCustomerCpfUseCase,
 } from './usecases';
+import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.usecase';
 
 @Module({
   imports: [forwardRef(() => InfrastructureModule)],
@@ -27,6 +29,7 @@ import {
     AddItemToOrderUseCase,
     GetAllOrdersUseCase,
     GetCartOrderUseCase,
+    CreateCheckoutUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -38,7 +41,13 @@ import {
     AddItemToOrderUseCase,
     GetAllOrdersUseCase,
     GetCartOrderUseCase,
+    CreateCheckoutUseCase,
   ],
-  controllers: [CustomerController, ItemController, OrderController],
+  controllers: [
+    CustomerController,
+    ItemController,
+    OrderController,
+    CheckoutController,
+  ],
 })
 export class ApplicationModule {}

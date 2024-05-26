@@ -55,6 +55,7 @@ model Order {
   customerId      Int?
   Customer        Customer?    @relation(fields: [customerId], references: [id])
   orderItems      OrderItems[]
+  Checkout        Checkout[]
 }
 
 model Checkout {

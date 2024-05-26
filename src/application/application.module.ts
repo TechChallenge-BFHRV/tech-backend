@@ -12,6 +12,7 @@ import {
   GetCartOrderUseCase,
   GetCustomerByCpfUseCase,
   GetItemUseCase,
+  OrderStepForwardUseCase,
   SetCustomerCpfUseCase,
 } from './usecases';
 
@@ -27,6 +28,7 @@ import {
     AddItemToOrderUseCase,
     GetAllOrdersUseCase,
     GetCartOrderUseCase,
+    OrderStepForwardUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -38,6 +40,7 @@ import {
     AddItemToOrderUseCase,
     GetAllOrdersUseCase,
     GetCartOrderUseCase,
+    OrderStepForwardUseCase,
   ],
   controllers: [CustomerController, ItemController, OrderController],
 })

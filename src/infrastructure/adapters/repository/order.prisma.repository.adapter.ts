@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Step } from '@prisma/client';
 import { OrderModel } from '../../../domain/models/orders.model';
 import { OrderRepositoryPort } from '../../../domain/ports/order.repository.port';
 import { PrismaService } from '../prisma.service';
@@ -62,5 +63,16 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
   }
   delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+
+  async orderStepForward(id: number, step: Step): Promise<OrderModel> {
+    console.log('now calling order step forward...', id, step);
+    const order = await this.prisma.order.update({
+      where: { id: id },
+      data: {
+        step: step,
+      },
+    });
+    return order;
   }
 }

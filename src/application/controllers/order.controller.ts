@@ -6,6 +6,7 @@ import {
   AddItemToOrderUseCase,
   GetAllOrdersUseCase,
   GetCartOrderUseCase,
+  OrderStepForwardUseCase,
 } from '../usecases';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
 
@@ -17,6 +18,7 @@ export class OrderController {
     private readonly addItemToOrderUseCase: AddItemToOrderUseCase,
     private readonly getAllOrdersUseCase: GetAllOrdersUseCase,
     private readonly getCartOrderUseCase: GetCartOrderUseCase,
+    private readonly orderStepForwardUseCase: OrderStepForwardUseCase,
   ) {}
 
   @Get()
@@ -107,5 +109,19 @@ export class OrderController {
         items: orderCreated?.orderItems?.map((orderItem) => orderItem.Item),
       },
     };
+  }
+
+  @Post(':orderId/step-forward')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Step advanced successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Failed to advance step.',
+  })
+  async orderStepForward(@Param('orderId') orderId: number) {
+    const updatedOrder = await this.orderStepForwardUseCase.execute(orderId);
+    return updatedOrder;
   }
 }

@@ -19,13 +19,32 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     return createdOrder;
   }
 
-  update(id: string, data: OrderModel): Promise<OrderModel> {
-    throw new Error('Method not implemented.');
+  update(id: number, data: OrderModel): Promise<OrderModel> {
+    const updatedOrder = this.prisma.order.update({
+      where: { id: data.id },
+      data: {
+        name: data.name,
+        totalPrice: data.totalPrice,
+        status: data.status,
+        step: data.step,
+        preparationTime: data.preparationTime,
+        finalPrice: data.finalPrice,
+        customerId: data.customerId,
+      },
+    });
+    return updatedOrder;
   }
+
   getById(id: number): Promise<OrderModel> {
     const orders = this.prisma.order.findUnique({
       where: { id: id },
-      include: { orderItems: true },
+      include: {
+        orderItems: {
+          include: {
+            Item: true,
+          },
+        },
+      },
     });
     return orders;
   }
@@ -41,7 +60,7 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     });
     return orders;
   }
-  delete(id: string): Promise<void> {
+  delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

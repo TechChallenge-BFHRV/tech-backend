@@ -44,6 +44,8 @@ model Order {
   id         Int          @id @default(autoincrement())
   name       String?
   totalPrice Int?
+  finalPrice Int?
+  preparationTime Int?
   status     Status
   step       Step
   createdAt  DateTime?     @default(now())

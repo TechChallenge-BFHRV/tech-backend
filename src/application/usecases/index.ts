@@ -6,3 +6,4 @@ export * from './items/get-item.usecase';
 export * from './order-items/add-item-to-order.usecase';
 export * from './orders/create-order-usecase';
 export * from './orders/get-all-orders.usecase';
+export * from './orders/get-cart-order.usecase';

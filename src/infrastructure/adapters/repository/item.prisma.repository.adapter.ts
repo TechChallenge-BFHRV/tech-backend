@@ -23,7 +23,7 @@ export class PrismaItemRepositoryAdapter implements ItemRepositoryPort {
     return item;
   }
 
-  update(id: string, data: ItemModel): Promise<ItemModel> {
+  update(id: number, data: ItemModel): Promise<ItemModel> {
     throw new Error('Method not implemented.');
   }
   getById(id: number): Promise<ItemModel> {
@@ -33,7 +33,7 @@ export class PrismaItemRepositoryAdapter implements ItemRepositoryPort {
     const items = this.prisma.item.findMany();
     return items;
   }
-  delete(id: string): Promise<void> {
+  delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

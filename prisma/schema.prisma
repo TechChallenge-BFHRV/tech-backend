@@ -72,7 +72,9 @@ model Checkout {
 enum Status {
   STARTED
   PENDING
-  COMPLETED
+  APPROVED
+  IN_PROGRESS
+  READY
   FINISHED
   CANCELLED
 }

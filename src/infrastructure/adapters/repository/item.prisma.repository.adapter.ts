@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ItemCategory } from '@prisma/client';
 import { ItemModel } from '../../../domain/models/items.model';
 import { ItemRepositoryPort } from '../../../domain/ports/item.repository.port';
 import { PrismaService } from '../prisma.service';
@@ -35,5 +36,14 @@ export class PrismaItemRepositoryAdapter implements ItemRepositoryPort {
   }
   delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+
+  async getItemsPerCategory(category: ItemCategory): Promise<ItemModel[]> {
+    const items = await this.prisma.item.findMany({
+      where: {
+        category: category,
+      },
+    });
+    return items;
   }
 }

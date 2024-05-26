@@ -13,6 +13,7 @@ import {
   GetCartOrderUseCase,
   GetCustomerByCpfUseCase,
   GetItemUseCase,
+  GetItemsPerCategoryUseCase,
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
   SetCustomerCpfUseCase,
@@ -33,7 +34,9 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     GetCartOrderUseCase,
     OrderStepForwardUseCase,
     OrderStepBackwardUseCase,
+    GetItemsPerCategoryUseCase,
     CreateCheckoutUseCase,
+    set-order-step
   ],
   exports: [
     CreateCustomerUseCase,
@@ -47,6 +50,8 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     GetCartOrderUseCase,
     OrderStepForwardUseCase,
     OrderStepBackwardUseCase,
+    get-items-by-category
+    GetItemsPerCategoryUseCase,
     CreateCheckoutUseCase,
   ],
   controllers: [
@@ -54,6 +59,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     ItemController,
     OrderController,
     CheckoutController,
+    set-order-step
   ],
 })
 export class ApplicationModule {}

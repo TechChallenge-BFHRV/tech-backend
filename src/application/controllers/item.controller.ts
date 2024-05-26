@@ -1,7 +1,12 @@
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ItemCategory } from '@prisma/client';
 import { CreateItemDTO } from '../../infrastructure/dto/item/create-item.dto';
-import { CreateItemUseCase, GetItemUseCase } from '../usecases';
+import {
+  CreateItemUseCase,
+  GetItemUseCase,
+  GetItemsPerCategoryUseCase,
+} from '../usecases';
 
 @ApiTags('item')
 @Controller('item')
@@ -9,6 +14,7 @@ export class ItemController {
   constructor(
     private readonly createItemUseCase: CreateItemUseCase,
     private readonly getItemUseCase: GetItemUseCase,
+    private readonly getItemsPerCategoryUseCase: GetItemsPerCategoryUseCase,
   ) {}
 
   @Post()
@@ -44,6 +50,24 @@ export class ItemController {
       statusCode: HttpStatus.OK,
       message: 'Item retrieved successfully',
       data: item,
+    };
+  }
+
+  @Get(':category')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Items retrieved successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Failed to retrieve items.',
+  })
+  async getItemsPerCategory(@Param('category') category: ItemCategory) {
+    const items = await this.getItemsPerCategoryUseCase.execute(category);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Items retrieved successfully',
+      data: items,
     };
   }
 }

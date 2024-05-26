@@ -19,16 +19,16 @@ model Customer {
 }
 
 model Item {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique
-  description String?
-  imageUrl    String?
-  price       Int
+  id              Int          @id @default(autoincrement())
+  name            String       @unique
+  description     String?
+  imageUrl        String?
+  price           Int
   preparationTime Int
-  category    ItemCategory
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  orderItems  OrderItems[]
+  category        ItemCategory
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  orderItems      OrderItems[]
 }
 
 model OrderItems {
@@ -41,18 +41,18 @@ model OrderItems {
 }
 
 model Order {
-  id         Int          @id @default(autoincrement())
-  name       String?
-  totalPrice Int?
-  finalPrice Int?
+  id              Int          @id @default(autoincrement())
+  name            String?
+  totalPrice      Int?
+  finalPrice      Int?
   preparationTime Int?
-  status     Status
-  step       Step
-  createdAt  DateTime?     @default(now())
-  updatedAt  DateTime?     @updatedAt
-  customerId Int?
-  Customer   Customer?     @relation(fields: [customerId], references: [id])
-  orderItems OrderItems[]
+  status          Status
+  step            Step
+  createdAt       DateTime?    @default(now())
+  updatedAt       DateTime?    @updatedAt
+  customerId      Int?
+  Customer        Customer?    @relation(fields: [customerId], references: [id])
+  orderItems      OrderItems[]
 }
 
 enum Status {
@@ -67,6 +67,7 @@ enum Step {
   START
   MEAL
   DRINK
+  SIDE_DISH
   DESERT
   CHECKOUT
   PAYMENT_REQUEST

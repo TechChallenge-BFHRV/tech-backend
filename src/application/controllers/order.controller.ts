@@ -1,3 +1,4 @@
+
 import {
   Body,
   Controller,
@@ -6,12 +7,20 @@ import {
   Post,
   Put,
   Query,
+  Param
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AddItemToOrderDTO } from '../../infrastructure/dto/order-item/add-item-to-order-dto';
 import { CreateOrderDTO } from '../../infrastructure/dto/order/create-order-dto';
 import { AddItemToOrderUseCase, GetAllOrdersUseCase } from '../usecases';
 import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
+import {
+  AddItemToOrderUseCase,
+  GetAllOrdersUseCase,
+  GetCartOrderUseCase,
+  OrderStepBackwardUseCase,
+  OrderStepForwardUseCase,
+} from '../usecases';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
 
 @ApiTags('order')
@@ -22,6 +31,9 @@ export class OrderController {
     private readonly addItemToOrderUseCase: AddItemToOrderUseCase,
     private readonly getAllOrdersUseCase: GetAllOrdersUseCase,
     private readonly setItemToOrderUseCase: SetItemToOrderUseCase,
+    private readonly getCartOrderUseCase: GetCartOrderUseCase,
+    private readonly orderStepForwardUseCase: OrderStepForwardUseCase,
+    private readonly orderStepBackwardUseCase: OrderStepBackwardUseCase,
   ) {}
 
   @Get()
@@ -42,10 +54,13 @@ export class OrderController {
         id: el.id,
         totalPrice: el.totalPrice,
         status: el.status,
+        step: el.step,
         createdAt: el.createdAt,
         updatedAt: el.updatedAt,
         customerId: el.customerId,
-        items: el.orderItems.map((orderItem) => orderItem.Item),
+        items: el?.orderItems?.map((orderItem) => {
+          return { orderItemId: orderItem.id, ...orderItem.Item };
+        }),
       })),
     };
   }
@@ -103,5 +118,63 @@ export class OrderController {
       message: 'Order created successfully',
       data: orderCreated,
     };
+  }
+
+  @Get(':id/cart')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Order created successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid input data.',
+  })
+  async GetCartOrder(@Param('id') id: number) {
+    const orderCreated = await this.getCartOrderUseCase.execute(id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Order created successfully',
+      data: {
+        id: orderCreated.id,
+        totalPrice: orderCreated.totalPrice,
+        finalPrice: orderCreated.finalPrice,
+        preparationTime: orderCreated.preparationTime,
+        status: orderCreated.status,
+        createdAt: orderCreated.createdAt,
+        updatedAt: orderCreated.updatedAt,
+        customerId: orderCreated.customerId,
+        items: orderCreated?.orderItems?.map((orderItem) => {
+          return { orderItemId: orderItem.id, ...orderItem.Item };
+        }),
+      },
+    };
+  }
+
+  @Post(':orderId/step-forward')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Step advanced successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Failed to advance step.',
+  })
+  async orderStepForward(@Param('orderId') orderId: number) {
+    const updatedOrder = await this.orderStepForwardUseCase.execute(orderId);
+    return updatedOrder;
+  }
+
+  @Post(':orderId/step-backward')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Step receded successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Failed to recede step.',
+  })
+  async orderStepBackward(@Param('orderId') orderId: number) {
+    const updatedOrder = await this.orderStepBackwardUseCase.execute(orderId);
+    return updatedOrder;
   }
 }

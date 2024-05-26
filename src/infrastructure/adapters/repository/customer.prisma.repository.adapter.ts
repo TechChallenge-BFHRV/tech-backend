@@ -33,7 +33,7 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
     });
   }
 
-  update(id: string, data: CustomerModel): Promise<CustomerModel> {
+  update(id: number, data: CustomerModel): Promise<CustomerModel> {
     throw new Error('Method not implemented.');
   }
   getById(id: number): Promise<CustomerModel> {
@@ -42,7 +42,7 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
   getAll(): Promise<CustomerModel[]> {
     throw new Error('Method not implemented.');
   }
-  delete(id: string): Promise<void> {
+  delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

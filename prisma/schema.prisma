@@ -33,11 +33,12 @@ model Item {
 }
 
 model OrderItems {
-  id      Int @id @default(autoincrement())
-  orderId Int
-  itemId  Int
+  id          Int @id @default(autoincrement())
+  orderId     Int
+  itemId      Int
+  isActive    Boolean  @default(true) 
 
-  Order Order @relation(fields: [orderId], references: [id])
+  Order Order @relation(fields: [orderId], references: [id])  
   Item  Item  @relation(fields: [itemId], references: [id])
 }
 

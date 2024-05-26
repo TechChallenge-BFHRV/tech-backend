@@ -16,6 +16,7 @@ import {
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
   SetCustomerCpfUseCase,
+  SetItemToOrderUseCase,
 } from './usecases';
 import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.usecase';
 
@@ -30,6 +31,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     CreateOrderUseCase,
     AddItemToOrderUseCase,
     GetAllOrdersUseCase,
+    SetItemToOrderUseCase,
     GetCartOrderUseCase,
     OrderStepForwardUseCase,
     OrderStepBackwardUseCase,
@@ -44,6 +46,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     CreateOrderUseCase,
     AddItemToOrderUseCase,
     GetAllOrdersUseCase,
+    SetItemToOrderUseCase,
     GetCartOrderUseCase,
     OrderStepForwardUseCase,
     OrderStepBackwardUseCase,

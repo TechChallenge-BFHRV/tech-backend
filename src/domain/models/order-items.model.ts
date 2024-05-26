@@ -5,4 +5,5 @@ export class OrderItemModel {
   orderId: number;
   itemId: number;
   Item?: Item;
+  isActive?: boolean;
 }

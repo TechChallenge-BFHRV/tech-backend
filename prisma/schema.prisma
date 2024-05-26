@@ -9,13 +9,14 @@ datasource db {
 }
 
 model Customer {
-  id        Int      @id @default(autoincrement())
-  email     String?  @unique
+  id        Int        @id @default(autoincrement())
+  email     String?    @unique
   name      String
-  cpf       String?  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  cpf       String?    @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   orders    Order[]
+  Checkout  Checkout[]
 }
 
 model Item {
@@ -55,12 +56,29 @@ model Order {
   orderItems      OrderItems[]
 }
 
+model Checkout {
+  id         Int            @id @default(autoincrement())
+  orderId    Int?
+  customerId Int?
+  status     CheckoutStatus
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  Order      Order?         @relation(fields: [orderId], references: [id])
+  Customer   Customer?      @relation(fields: [customerId], references: [id])
+}
+
 enum Status {
   STARTED
   PENDING
   COMPLETED
   FINISHED
   CANCELLED
+}
+
+enum CheckoutStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 enum Step {

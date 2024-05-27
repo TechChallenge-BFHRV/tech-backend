@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull';
 import { Module, forwardRef } from '@nestjs/common';
 import { InfrastructureModule } from '../infrastructure/infrastructure.module';
 import { checkoutController as CheckoutController } from './controllers/checkout.controller';
@@ -25,9 +26,22 @@ import {
   SetOrderToPrepareUseCase,
   SetOrderToReadyUseCase,
 } from './usecases';
+import { OrderQueueUseCase } from './usecases/orders/queue/order-queue.usecase';
+import { OrderProcessor } from './usecases/orders/queue/processor/order.processor';
 
 @Module({
-  imports: [forwardRef(() => InfrastructureModule)],
+  imports: [
+    forwardRef(() => InfrastructureModule),
+    BullModule.forRoot({
+      redis: {
+        host: 'redis',
+        port: 6379,
+      },
+    }),
+    BullModule.registerQueue({
+      name: 'order-queue',
+    }),
+  ],
   providers: [
     CreateCustomerUseCase,
     SetCustomerCpfUseCase,
@@ -48,6 +62,8 @@ import {
     SetOrderToReadyUseCase,
     SetOrderToFinishedUseCase,
     SetOrderToCancelledUseCase,
+    OrderQueueUseCase,
+    OrderProcessor,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -69,6 +85,8 @@ import {
     SetOrderToReadyUseCase,
     SetOrderToFinishedUseCase,
     SetOrderToCancelledUseCase,
+    OrderQueueUseCase,
+    OrderProcessor,
   ],
   controllers: [
     CustomerController,

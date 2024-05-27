@@ -19,6 +19,7 @@ import {
   OrderStepForwardUseCase,
   SetCustomerCpfUseCase,
   SetItemToOrderUseCase,
+  SetOrderToCancelledUseCase,
   SetOrderToPrepareUseCase,
   SetOrderToReadyUseCase,
 } from './usecases';
@@ -46,6 +47,7 @@ import { SetOrderToFinishedUseCase } from './usecases/orders/set-order-to-finish
     SetOrderToPrepareUseCase,
     SetOrderToReadyUseCase,
     SetOrderToFinishedUseCase,
+    SetOrderToCancelledUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -66,6 +68,7 @@ import { SetOrderToFinishedUseCase } from './usecases/orders/set-order-to-finish
     SetOrderToPrepareUseCase,
     SetOrderToReadyUseCase,
     SetOrderToFinishedUseCase,
+    SetOrderToCancelledUseCase,
   ],
   controllers: [
     CustomerController,

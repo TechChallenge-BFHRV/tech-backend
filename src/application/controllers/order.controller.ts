@@ -19,6 +19,7 @@ import {
   GetOrdersByStatusUseCase,
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
+  SetOrderToCancelledUseCase,
   SetOrderToFinishedUseCase,
   SetOrderToPrepareUseCase,
   SetOrderToReadyUseCase,
@@ -43,6 +44,7 @@ export class OrderController {
     private readonly setOrderToPrepareUseCase: SetOrderToPrepareUseCase,
     private readonly setOrderToReadyUseCase: SetOrderToReadyUseCase,
     private readonly setOrderToFinishedUseCase: SetOrderToFinishedUseCase,
+    private readonly setOrderToCancelledUseCase: SetOrderToCancelledUseCase,
   ) {}
 
   @Get()
@@ -281,6 +283,24 @@ export class OrderController {
     return {
       statusCode: HttpStatus.ACCEPTED,
       message: `Order status changed to finished.`,
+      data: orders,
+    };
+  }
+
+  @Put(':orderId/cancelled')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Order status changed to cancelled.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async setToCancelled(@Param('orderId') orderId: number) {
+    const orders = await this.setOrderToCancelledUseCase.execute(orderId);
+    return {
+      statusCode: HttpStatus.ACCEPTED,
+      message: `Order status changed to cancelled.`,
       data: orders,
     };
   }

@@ -19,6 +19,7 @@ import {
   GetOrdersByStatusUseCase,
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
+  SetOrderToFinishedUseCase,
   SetOrderToPrepareUseCase,
   SetOrderToReadyUseCase,
 } from '../usecases';
@@ -41,6 +42,7 @@ export class OrderController {
     private readonly getOrderByIdUseCase: GetOrderByIdUseCase,
     private readonly setOrderToPrepareUseCase: SetOrderToPrepareUseCase,
     private readonly setOrderToReadyUseCase: SetOrderToReadyUseCase,
+    private readonly setOrderToFinishedUseCase: SetOrderToFinishedUseCase,
   ) {}
 
   @Get()
@@ -261,6 +263,24 @@ export class OrderController {
     return {
       statusCode: HttpStatus.ACCEPTED,
       message: `Order status changed to ready.`,
+      data: orders,
+    };
+  }
+
+  @Put(':orderId/finished')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Order status changed to finished.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async setToFinished(@Param('orderId') orderId: number) {
+    const orders = await this.setOrderToFinishedUseCase.execute(orderId);
+    return {
+      statusCode: HttpStatus.ACCEPTED,
+      message: `Order status changed to finished.`,
       data: orders,
     };
   }

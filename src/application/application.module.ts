@@ -23,6 +23,7 @@ import {
   SetOrderToReadyUseCase,
 } from './usecases';
 import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.usecase';
+import { SetOrderToFinishedUseCase } from './usecases/orders/set-order-to-finished.usecase';
 
 @Module({
   imports: [forwardRef(() => InfrastructureModule)],
@@ -44,6 +45,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     GetOrderByIdUseCase,
     SetOrderToPrepareUseCase,
     SetOrderToReadyUseCase,
+    SetOrderToFinishedUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -63,6 +65,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     GetOrderByIdUseCase,
     SetOrderToPrepareUseCase,
     SetOrderToReadyUseCase,
+    SetOrderToFinishedUseCase,
   ],
   controllers: [
     CustomerController,

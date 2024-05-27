@@ -19,9 +19,11 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
   }
 
   async getCustomerByCpf(cpf: string): Promise<CustomerModel> {
-    return await this.prisma.customer.findUnique({
+    const customer = await this.prisma.customer.findUnique({
       where: { cpf: cpf },
     });
+    if (!customer) throw new Error('Customer not found!');
+    return customer;
   }
 
   async setCustomerCpf(id: number, cpf: string): Promise<CustomerModel> {

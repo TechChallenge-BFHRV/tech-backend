@@ -1,16 +1,22 @@
-import { ArgumentsHost, Catch, ExceptionFilter, Logger } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  Logger,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 import CustomerIdInvalidException from '../../domain/exceptions/customer-id-invalid.exception';
 
 @Catch()
 export default class HttpExceptionFilter implements ExceptionFilter<Error> {
-  catch(exception: Error, host: ArgumentsHost) {
+  catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
     const { message, status } = this.isBusinessException(exception);
-    response.status(status).json({
+    response.status(status).send({
       message,
       statusCode: status,
       timestamp: new Date().toISOString(),
@@ -19,7 +25,7 @@ export default class HttpExceptionFilter implements ExceptionFilter<Error> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public isBusinessException(exception: Error): any {
+  public isBusinessException(exception: HttpException): any {
     if (exception instanceof CustomerIdInvalidException) {
       return {
         message: exception.message,
@@ -28,7 +34,7 @@ export default class HttpExceptionFilter implements ExceptionFilter<Error> {
     }
     Logger.log(exception.stack);
     return {
-      message: 'unknown',
+      message: exception.message.replace(/\n/g, '') || 'Internal server error',
       status: 500,
     };
   }

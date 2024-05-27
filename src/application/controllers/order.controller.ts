@@ -9,17 +9,20 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Status } from '@prisma/client';
 import { AddItemToOrderDTO } from '../../infrastructure/dto/order-item/add-item-to-order-dto';
 import { CreateOrderDTO } from '../../infrastructure/dto/order/create-order-dto';
 import {
   AddItemToOrderUseCase,
   GetAllOrdersUseCase,
   GetCartOrderUseCase,
+  GetOrdersByStatusUseCase,
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
 } from '../usecases';
 import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
+import { GetOrderByIdUseCase } from '../usecases/orders/get-order-by-id.usecase';
 
 @ApiTags('order')
 @Controller('order')
@@ -32,6 +35,8 @@ export class OrderController {
     private readonly getCartOrderUseCase: GetCartOrderUseCase,
     private readonly orderStepForwardUseCase: OrderStepForwardUseCase,
     private readonly orderStepBackwardUseCase: OrderStepBackwardUseCase,
+    private readonly getOrdersByStatusUseCase: GetOrdersByStatusUseCase,
+    private readonly getOrderByIdUseCase: GetOrderByIdUseCase,
   ) {}
 
   @Get()
@@ -60,6 +65,31 @@ export class OrderController {
           return { orderItemId: orderItem.id, ...orderItem.Item };
         }),
       })),
+    };
+  }
+
+  @Get('/:id')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Order per ID retrieved successfully',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async getOrder(@Param('id') orderId: number) {
+    const order = await this.getOrderByIdUseCase.execute(orderId);
+    if (!order) {
+      return {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: `Order with ID #${orderId} not found!`,
+        data: order,
+      };
+    }
+    return {
+      statusCode: HttpStatus.OK,
+      message: `Order with ID #${orderId} retrieved successfully`,
+      data: order,
     };
   }
 
@@ -174,5 +204,24 @@ export class OrderController {
   async orderStepBackward(@Param('orderId') orderId: number) {
     const updatedOrder = await this.orderStepBackwardUseCase.execute(orderId);
     return updatedOrder;
+  }
+
+  @Get('status/:orderStatus')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Orders succesffully retrieved by status.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async getOrdersByStatus(@Param('orderStatus') orderStatus: Status) {
+    const orders = await this.getOrdersByStatusUseCase.execute(orderStatus);
+    return {
+      statusCode: HttpStatus.OK,
+      message: `Orders succesffully retrieved by status ${orderStatus}.`,
+      amountOfOrders: orders.length,
+      data: orders,
+    };
   }
 }

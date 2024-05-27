@@ -186,7 +186,7 @@ export class OrderController {
     };
   }
 
-  @Post(':orderId/step-forward')
+  @Put(':orderId/step-forward')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Step advanced successfully.',
@@ -200,7 +200,7 @@ export class OrderController {
     return updatedOrder;
   }
 
-  @Post(':orderId/step-backward')
+  @Put(':orderId/step-backward')
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Step receded successfully.',

@@ -19,6 +19,7 @@ import {
   GetOrdersByStatusUseCase,
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
+  SetOrderToPrepareUseCase,
 } from '../usecases';
 import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
@@ -37,6 +38,7 @@ export class OrderController {
     private readonly orderStepBackwardUseCase: OrderStepBackwardUseCase,
     private readonly getOrdersByStatusUseCase: GetOrdersByStatusUseCase,
     private readonly getOrderByIdUseCase: GetOrderByIdUseCase,
+    private readonly setOrderToPrepare: SetOrderToPrepareUseCase,
   ) {}
 
   @Get()
@@ -221,6 +223,24 @@ export class OrderController {
       statusCode: HttpStatus.OK,
       message: `Orders succesffully retrieved by status ${orderStatus}.`,
       amountOfOrders: orders.length,
+      data: orders,
+    };
+  }
+
+  @Put(':orderId/prepare')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Orders succesffully retrieved by status.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async setToPrepare(@Param('orderId') orderId: number) {
+    const orders = await this.setOrderToPrepare.execute(orderId);
+    return {
+      statusCode: HttpStatus.ACCEPTED,
+      message: `Order started to be prepared.`,
       data: orders,
     };
   }

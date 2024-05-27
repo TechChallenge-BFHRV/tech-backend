@@ -10,11 +10,12 @@ services:
       - 3000:3000
     volumes:
       - ./:/app
-    command: sh -c "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run start:dev"   - 3000:3000
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run start:dev"
     depends_on:
       - database-db
+      - redis
     networks:
-      - database-network
+      - app-network
 
   database-db:
     image: 'bitnami/postgresql'
@@ -28,11 +29,19 @@ services:
     volumes:
       - 'postgresql_data:/bitnami/postgresql'
     networks:
-      - database-network
+      - app-network
+
+  redis:
+    image: 'redis:latest'
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - app-network
 
 volumes:
   postgresql_data:
     driver: local
 
 networks:
-  database-network:
+  app-network:

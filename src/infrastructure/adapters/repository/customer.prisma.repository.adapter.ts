@@ -19,9 +19,11 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
   }
 
   async getCustomerByCpf(cpf: string): Promise<CustomerModel> {
-    return await this.prisma.customer.findUnique({
+    const customer = await this.prisma.customer.findUnique({
       where: { cpf: cpf },
     });
+    if (!customer) throw new Error('Customer not found!');
+    return customer;
   }
 
   async setCustomerCpf(id: number, cpf: string): Promise<CustomerModel> {
@@ -33,7 +35,7 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
     });
   }
 
-  update(id: string, data: CustomerModel): Promise<CustomerModel> {
+  update(id: number, data: CustomerModel): Promise<CustomerModel> {
     throw new Error('Method not implemented.');
   }
   getById(id: number): Promise<CustomerModel> {
@@ -42,7 +44,7 @@ export class PrismaCustomerRepositoryAdapter implements CustomerRepositoryPort {
   getAll(): Promise<CustomerModel[]> {
     throw new Error('Method not implemented.');
   }
-  delete(id: string): Promise<void> {
+  delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

@@ -10,6 +10,8 @@ export class OrderModel {
   step: Step;
   createdAt: Date;
   updatedAt: Date;
+  finalPrice?: number;
+  preparationTime?: number;
 
   constructor(id: number) {
     this.id = id || null;

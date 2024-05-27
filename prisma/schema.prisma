@@ -9,26 +9,27 @@ datasource db {
 }
 
 model Customer {
-  id        Int      @id @default(autoincrement())
-  email     String?  @unique
+  id        Int        @id @default(autoincrement())
+  email     String?    @unique
   name      String
-  cpf       String?  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  cpf       String?    @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   orders    Order[]
+  Checkout  Checkout[]
 }
 
 model Item {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique
-  description String?
-  imageUrl    String?
-  price       Int
+  id              Int          @id @default(autoincrement())
+  name            String       @unique
+  description     String?
+  imageUrl        String?
+  price           Int
   preparationTime Int
-  category    ItemCategory
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  orderItems  OrderItems[]
+  category        ItemCategory
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  orderItems      OrderItems[]
 }
 
 model OrderItems {
@@ -42,29 +43,52 @@ model OrderItems {
 }
 
 model Order {
-  id         Int          @id @default(autoincrement())
-  totalPrice Int?
-  status     Status
-  step       Step
-  createdAt  DateTime?     @default(now())
-  updatedAt  DateTime?     @updatedAt
+  id              Int          @id @default(autoincrement())
+  totalPrice      Int?
+  finalPrice      Int?
+  preparationTime Int?
+  status          Status
+  step            Step
+  createdAt       DateTime?    @default(now())
+  updatedAt       DateTime?    @updatedAt
+  customerId      Int?
+  Customer        Customer?    @relation(fields: [customerId], references: [id])
+  orderItems      OrderItems[]
+  Checkout        Checkout[]
+}
+
+model Checkout {
+  id         Int            @id @default(autoincrement())
+  orderId    Int?
   customerId Int?
-  Customer   Customer?     @relation(fields: [customerId], references: [id])
-  orderItems OrderItems[]
+  status     CheckoutStatus
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  Order      Order?         @relation(fields: [orderId], references: [id])
+  Customer   Customer?      @relation(fields: [customerId], references: [id])
 }
 
 enum Status {
   STARTED
   PENDING
-  COMPLETED
+  APPROVED
+  IN_PROGRESS
+  READY
   FINISHED
   CANCELLED
+}
+
+enum CheckoutStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 enum Step {
   START
   MEAL
   DRINK
+  SIDE_DISH
   DESERT
   CHECKOUT
   PAYMENT_REQUEST

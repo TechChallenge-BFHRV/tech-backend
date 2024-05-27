@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Status, Step } from '@prisma/client';
 import { OrderModel } from '../../../domain/models/orders.model';
 import { OrderRepositoryPort } from '../../../domain/ports/order.repository.port';
 import { PrismaService } from '../prisma.service';
@@ -18,15 +19,34 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     return createdOrder;
   }
 
-  update(id: string, data: OrderModel): Promise<OrderModel> {
-    throw new Error('Method not implemented.');
-  }
-  getById(id: number): Promise<OrderModel> {
-    const orders = this.prisma.order.findUnique({
-      where: { id: id },
-      include: { orderItems: true },
+  update(id: number, data: OrderModel): Promise<OrderModel> {
+    const updatedOrder = this.prisma.order.update({
+      where: { id: data.id },
+      data: {
+        totalPrice: data.totalPrice,
+        status: data.status,
+        step: data.step,
+        preparationTime: data.preparationTime,
+        finalPrice: data.finalPrice,
+        customerId: data.customerId,
+      },
     });
-    return orders;
+    return updatedOrder;
+  }
+
+  async getById(id: number): Promise<OrderModel> {
+    const order = await this.prisma.order.findUnique({
+      where: { id: id },
+      include: {
+        orderItems: {
+          include: {
+            Item: true,
+          },
+        },
+      },
+    });
+    if (!order) throw new Error('Order not found!');
+    return order;
   }
   getAll(): Promise<OrderModel[]> {
     const orders = this.prisma.order.findMany({
@@ -40,7 +60,26 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     });
     return orders;
   }
-  delete(id: string): Promise<void> {
+  delete(id: number): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+
+  async orderStepUpdate(id: number, step: Step): Promise<OrderModel> {
+    const order = await this.prisma.order.update({
+      where: { id: id },
+      data: {
+        step: step,
+      },
+    });
+    return order;
+  }
+
+  async getOrdersByStatus(status: Status): Promise<OrderModel[]> {
+    const orders = await this.prisma.order.findMany({
+      where: {
+        status: status,
+      },
+    });
+    return orders;
   }
 }

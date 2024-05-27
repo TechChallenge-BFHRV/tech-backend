@@ -1,3 +1,4 @@
+export * from './checkout/create-checkout.usecase';
 export * from './customers/create-customer.usecase';
 export * from './customers/get-customer-by-cpf.usecase';
 export * from './customers/set-customer-cpf.usecase';
@@ -7,3 +8,12 @@ export * from './order-items/add-item-to-order.usecase';
 export * from './order-items/set-item.usecase';
 export * from './orders/create-order-usecase';
 export * from './orders/get-all-orders.usecase';
+export * from './orders/get-cart-order.usecase';
+export * from './orders/get-order-by-id.usecase';
+export * from './orders/get-orders-by-status.usecase';
+export * from './orders/set-order-to-cancelled.usecase';
+export * from './orders/set-order-to-finished.usecase';
+export * from './orders/set-order-to-prepare.usecase';
+export * from './orders/set-order-to-ready.usecase';
+export * from './orders/step-backward-order.usecase';
+export * from './orders/step-forward-order.usecase';

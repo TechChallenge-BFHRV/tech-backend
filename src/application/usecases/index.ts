@@ -11,5 +11,6 @@ export * from './orders/get-cart-order.usecase';
 export * from './orders/get-order-by-id.usecase';
 export * from './orders/get-orders-by-status.usecase';
 export * from './orders/set-order-to-prepare.usecase';
+export * from './orders/set-order-to-ready.usecase';
 export * from './orders/step-backward-order.usecase';
 export * from './orders/step-forward-order.usecase';

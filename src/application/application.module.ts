@@ -20,6 +20,7 @@ import {
   SetCustomerCpfUseCase,
   SetItemToOrderUseCase,
   SetOrderToPrepareUseCase,
+  SetOrderToReadyUseCase,
 } from './usecases';
 import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.usecase';
 
@@ -42,6 +43,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     GetOrdersByStatusUseCase,
     GetOrderByIdUseCase,
     SetOrderToPrepareUseCase,
+    SetOrderToReadyUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -60,6 +62,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     GetOrdersByStatusUseCase,
     GetOrderByIdUseCase,
     SetOrderToPrepareUseCase,
+    SetOrderToReadyUseCase,
   ],
   controllers: [
     CustomerController,

@@ -159,17 +159,17 @@ export class OrderController {
   @Get(':id/cart')
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: 'Order created successfully.',
+    description: 'Successfully retrieved cart.',
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Invalid input data.',
+    description: 'Order not found',
   })
   async GetCartOrder(@Param('id') id: number) {
     const orderCreated = await this.getCartOrderUseCase.execute(id);
     return {
       statusCode: HttpStatus.OK,
-      message: 'Order created successfully',
+      message: `Successfully retrieved cart of order #${id}.`,
       data: {
         id: orderCreated.id,
         totalPrice: orderCreated.totalPrice,

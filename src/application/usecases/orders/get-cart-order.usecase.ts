@@ -12,10 +12,6 @@ export class GetCartOrderUseCase implements IUseCase<OrderModel> {
   async execute(orderId: number): Promise<OrderModel> {
     let order = await this.orderRepository.getById(orderId);
 
-    if (!order) {
-      throw new Error('Order not found');
-    }
-
     order = await this.calculateFinalPrice(order);
     order = await this.calculatePreparationTime(order);
 

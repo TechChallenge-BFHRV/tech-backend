@@ -37,7 +37,7 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
   }
 
   async getById(id: number): Promise<OrderModel> {
-    const orders = await this.prisma.order.findUnique({
+    const order = await this.prisma.order.findUnique({
       where: { id: id },
       include: {
         orderItems: {
@@ -47,7 +47,8 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
         },
       },
     });
-    return orders;
+    if (!order) throw new Error('Order not found!');
+    return order;
   }
   getAll(): Promise<OrderModel[]> {
     const orders = this.prisma.order.findMany({

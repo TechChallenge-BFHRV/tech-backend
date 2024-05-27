@@ -10,7 +10,6 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
   async create(order: OrderModel): Promise<OrderModel> {
     const createdOrder = await this.prisma.order.create({
       data: {
-        name: order.name,
         totalPrice: order.totalPrice,
         status: order.status,
         step: order.step,

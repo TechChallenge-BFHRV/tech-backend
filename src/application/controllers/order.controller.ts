@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AddItemToOrderDTO } from '../../infrastructure/dto/order-item/add-item-to-order-dto';
-import { CreateOrderDTO } from '../../infrastructure/dto/order/create-order-dto';
 import { AddItemToOrderUseCase, GetAllOrdersUseCase } from '../usecases';
 import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
@@ -96,8 +95,8 @@ export class OrderController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid input data.',
   })
-  async createOrder(@Body() order: CreateOrderDTO) {
-    const orderCreated = await this.createOrderUseCase.execute(order);
+  async createOrder() {
+    const orderCreated = await this.createOrderUseCase.execute();
     return {
       statusCode: HttpStatus.CREATED,
       message: 'Order created successfully',

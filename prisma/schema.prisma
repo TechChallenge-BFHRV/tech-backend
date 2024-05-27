@@ -43,7 +43,6 @@ model OrderItems {
 
 model Order {
   id         Int          @id @default(autoincrement())
-  name       String?
   totalPrice Int?
   status     Status
   step       Step

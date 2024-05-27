@@ -3,7 +3,6 @@ import { OrderItemModel } from './order-items.model';
 
 export class OrderModel {
   id: number | null;
-  name: string;
   totalPrice: number;
   orderItems?: OrderItemModel[];
   customerId?: number;
@@ -12,9 +11,8 @@ export class OrderModel {
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(id: number, name: string) {
+  constructor(id: number) {
     this.id = id || null;
-    this.name = name;
     this.totalPrice = this.totalPrice;
     this.status = null;
     this.step = null;

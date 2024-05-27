@@ -22,6 +22,7 @@ import {
 } from '../usecases';
 import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
+import { GetOrderByIdUseCase } from '../usecases/orders/get-order-by-id.usecase';
 
 @ApiTags('order')
 @Controller('order')
@@ -35,6 +36,7 @@ export class OrderController {
     private readonly orderStepForwardUseCase: OrderStepForwardUseCase,
     private readonly orderStepBackwardUseCase: OrderStepBackwardUseCase,
     private readonly getOrdersByStatusUseCase: GetOrdersByStatusUseCase,
+    private readonly getOrderByIdUseCase: GetOrderByIdUseCase,
   ) {}
 
   @Get()
@@ -63,6 +65,31 @@ export class OrderController {
           return { orderItemId: orderItem.id, ...orderItem.Item };
         }),
       })),
+    };
+  }
+
+  @Get('/:id')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'Order per ID retrieved successfully',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async getOrder(@Param('id') orderId: number) {
+    const order = await this.getOrderByIdUseCase.execute(orderId);
+    if (!order) {
+      return {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: `Order with ID #${orderId} not found!`,
+        data: order,
+      };
+    }
+    return {
+      statusCode: HttpStatus.OK,
+      message: `Order with ID #${orderId} retrieved successfully`,
+      data: order,
     };
   }
 

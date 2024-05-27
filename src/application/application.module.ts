@@ -13,6 +13,7 @@ import {
   GetCartOrderUseCase,
   GetCustomerByCpfUseCase,
   GetItemUseCase,
+  GetOrderByIdUseCase,
   GetOrdersByStatusUseCase,
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
@@ -38,6 +39,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     OrderStepBackwardUseCase,
     CreateCheckoutUseCase,
     GetOrdersByStatusUseCase,
+    GetOrderByIdUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -54,6 +56,7 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     OrderStepBackwardUseCase,
     CreateCheckoutUseCase,
     GetOrdersByStatusUseCase,
+    GetOrderByIdUseCase,
   ],
   controllers: [
     CustomerController,

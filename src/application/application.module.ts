@@ -6,6 +6,7 @@ import { ItemController } from './controllers/item.controller';
 import { OrderController } from './controllers/order.controller';
 import {
   AddItemToOrderUseCase,
+  CreateCheckoutUseCase,
   CreateCustomerUseCase,
   CreateItemUseCase,
   CreateOrderUseCase,
@@ -19,8 +20,11 @@ import {
   OrderStepForwardUseCase,
   SetCustomerCpfUseCase,
   SetItemToOrderUseCase,
+  SetOrderToCancelledUseCase,
+  SetOrderToFinishedUseCase,
+  SetOrderToPrepareUseCase,
+  SetOrderToReadyUseCase,
 } from './usecases';
-import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.usecase';
 
 @Module({
   imports: [forwardRef(() => InfrastructureModule)],
@@ -40,6 +44,10 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     CreateCheckoutUseCase,
     GetOrdersByStatusUseCase,
     GetOrderByIdUseCase,
+    SetOrderToPrepareUseCase,
+    SetOrderToReadyUseCase,
+    SetOrderToFinishedUseCase,
+    SetOrderToCancelledUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -57,6 +65,10 @@ import { CreateCheckoutUseCase } from './usecases/checkout/create-checkout.useca
     CreateCheckoutUseCase,
     GetOrdersByStatusUseCase,
     GetOrderByIdUseCase,
+    SetOrderToPrepareUseCase,
+    SetOrderToReadyUseCase,
+    SetOrderToFinishedUseCase,
+    SetOrderToCancelledUseCase,
   ],
   controllers: [
     CustomerController,

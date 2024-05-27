@@ -19,6 +19,10 @@ import {
   GetOrdersByStatusUseCase,
   OrderStepBackwardUseCase,
   OrderStepForwardUseCase,
+  SetOrderToCancelledUseCase,
+  SetOrderToFinishedUseCase,
+  SetOrderToPrepareUseCase,
+  SetOrderToReadyUseCase,
 } from '../usecases';
 import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
@@ -37,6 +41,10 @@ export class OrderController {
     private readonly orderStepBackwardUseCase: OrderStepBackwardUseCase,
     private readonly getOrdersByStatusUseCase: GetOrdersByStatusUseCase,
     private readonly getOrderByIdUseCase: GetOrderByIdUseCase,
+    private readonly setOrderToPrepareUseCase: SetOrderToPrepareUseCase,
+    private readonly setOrderToReadyUseCase: SetOrderToReadyUseCase,
+    private readonly setOrderToFinishedUseCase: SetOrderToFinishedUseCase,
+    private readonly setOrderToCancelledUseCase: SetOrderToCancelledUseCase,
   ) {}
 
   @Get()
@@ -221,6 +229,78 @@ export class OrderController {
       statusCode: HttpStatus.OK,
       message: `Orders succesffully retrieved by status ${orderStatus}.`,
       amountOfOrders: orders.length,
+      data: orders,
+    };
+  }
+
+  @Put(':orderId/prepare')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Order started to be prepared.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async setToPrepare(@Param('orderId') orderId: number) {
+    const orders = await this.setOrderToPrepareUseCase.execute(orderId);
+    return {
+      statusCode: HttpStatus.ACCEPTED,
+      message: `Order started to be prepared.`,
+      data: orders,
+    };
+  }
+
+  @Put(':orderId/ready')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Order status changed to ready.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async setToReady(@Param('orderId') orderId: number) {
+    const orders = await this.setOrderToReadyUseCase.execute(orderId);
+    return {
+      statusCode: HttpStatus.ACCEPTED,
+      message: `Order status changed to ready.`,
+      data: orders,
+    };
+  }
+
+  @Put(':orderId/finished')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Order status changed to finished.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async setToFinished(@Param('orderId') orderId: number) {
+    const orders = await this.setOrderToFinishedUseCase.execute(orderId);
+    return {
+      statusCode: HttpStatus.ACCEPTED,
+      message: `Order status changed to finished.`,
+      data: orders,
+    };
+  }
+
+  @Put(':orderId/cancelled')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Order status changed to cancelled.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request.',
+  })
+  async setToCancelled(@Param('orderId') orderId: number) {
+    const orders = await this.setOrderToCancelledUseCase.execute(orderId);
+    return {
+      statusCode: HttpStatus.ACCEPTED,
+      message: `Order status changed to cancelled.`,
       data: orders,
     };
   }

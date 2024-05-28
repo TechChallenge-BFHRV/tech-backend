@@ -7,6 +7,7 @@ import { ItemController } from './controllers/item.controller';
 import { OrderController } from './controllers/order.controller';
 import {
   AddItemToOrderUseCase,
+  ConsistOrderUseCase,
   CreateCheckoutUseCase,
   CreateCustomerUseCase,
   CreateItemUseCase,
@@ -68,6 +69,7 @@ import { OrderProcessor } from './usecases/orders/queue/processor/order.processo
     OrderProcessor,
     SetOrderCustomerUseCase,
     GetItemsPerCategoryUseCase,
+    ConsistOrderUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -93,6 +95,7 @@ import { OrderProcessor } from './usecases/orders/queue/processor/order.processo
     OrderProcessor,
     SetOrderCustomerUseCase,
     GetItemsPerCategoryUseCase,
+    ConsistOrderUseCase,
   ],
   controllers: [
     CustomerController,

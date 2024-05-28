@@ -11,6 +11,27 @@
       "name": "Customer",
       "item": [
         {
+          "name": "Customer - find by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/customer/by-cpf?cpf=42480643832",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "customer", "by-cpf"],
+              "query": [
+                {
+                  "key": "cpf",
+                  "value": "42480643832"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Customer - create",
           "request": {
             "method": "POST",
@@ -30,27 +51,6 @@
               "host": ["localhost"],
               "port": "3000",
               "path": ["api", "v1", "customer"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Customer - find by id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/api/v1/customer/by-cpf?cpf=42480643832",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "v1", "customer", "by-cpf"],
-              "query": [
-                {
-                  "key": "cpf",
-                  "value": "42480643832"
-                }
-              ]
             }
           },
           "response": []
@@ -76,6 +76,40 @@
           "response": []
         },
         {
+          "name": "Order - Update customer",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/order/update-customer?orderId=8&customerId=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "order", "update-customer"],
+              "query": [
+                {
+                  "key": "orderId",
+                  "value": "8"
+                },
+                {
+                  "key": "customerId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Order - Step foward",
           "request": {
             "method": "PUT",
@@ -89,7 +123,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "3"
+                  "value": "4"
                 }
               ]
             }
@@ -110,7 +144,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "1"
+                  "value": "3"
                 }
               ]
             }
@@ -203,7 +237,7 @@
               "variable": [
                 {
                   "key": "status",
-                  "value": "PENDING"
+                  "value": ""
                 }
               ]
             }
@@ -217,7 +251,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"orderId\": 2,\n  \"itemId\": 3\n}",
+              "raw": "{\n  \"orderId\": 7,\n  \"itemId\": 5\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -240,7 +274,7 @@
             "method": "PUT",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/api/v1/order/remove-from-cart?orderItemId",
+              "raw": "http://localhost:3000/api/v1/order/remove-from-cart?orderItemId=16",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3000",
@@ -248,7 +282,7 @@
               "query": [
                 {
                   "key": "orderItemId",
-                  "value": null
+                  "value": "16"
                 }
               ]
             }
@@ -281,7 +315,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "1"
+                  "value": "7"
                 }
               ]
             }
@@ -302,7 +336,7 @@
               "variable": [
                 {
                   "key": "orderId",
-                  "value": "2"
+                  "value": "7"
                 }
               ]
             }
@@ -323,7 +357,7 @@
               "variable": [
                 {
                   "key": "orderId",
-                  "value": "2"
+                  "value": "4"
                 }
               ]
             }
@@ -344,7 +378,7 @@
               "variable": [
                 {
                   "key": "orderId",
-                  "value": "2"
+                  "value": "4"
                 }
               ]
             }
@@ -473,7 +507,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"orderId\": 2\n}",
+              "raw": "{\n    \"orderId\": 7\n}",
               "options": {
                 "raw": {
                   "language": "json"

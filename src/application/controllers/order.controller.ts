@@ -62,18 +62,31 @@ export class OrderController {
     return {
       statusCode: HttpStatus.OK,
       message: 'List of all orders retrieved successfully',
-      data: allOrders.map((el) => ({
-        id: el.id,
-        totalPrice: el.totalPrice,
-        status: el.status,
-        step: el.step,
-        createdAt: el.createdAt,
-        updatedAt: el.updatedAt,
-        customerId: el.customerId,
-        items: el?.orderItems?.map((orderItem) => {
-          return { orderItemId: orderItem.id, ...orderItem.Item };
-        }),
-      })),
+      data: allOrders.map((el) => {
+        const estimatedTime =
+          new Date(
+            el?.InProgressTimestamp?.getTime() + el?.preparationTime * 1000,
+          ) ?? null;
+
+        return {
+          id: el.id,
+          totalPrice: el.totalPrice,
+          status: el.status,
+          step: el.step,
+          createdAt: el.createdAt,
+          updatedAt: el.updatedAt,
+          customerId: el.customerId,
+          items: el?.orderItems?.map((orderItem) => {
+            return { orderItemId: orderItem.id, ...orderItem.Item };
+          }),
+          estimatedTime: estimatedTime,
+          minutesRemaining: estimatedTime
+            ? Math.floor(
+                (estimatedTime?.getTime() - new Date()?.getTime()) / 60000,
+              )
+            : null,
+        };
+      }),
     };
   }
 
@@ -95,10 +108,23 @@ export class OrderController {
         data: order,
       };
     }
+    const estimatedTime =
+      new Date(
+        order?.InProgressTimestamp?.getTime() + order?.preparationTime * 1000,
+      ) ?? null;
+
     return {
       statusCode: HttpStatus.OK,
       message: `Order with ID #${orderId} retrieved successfully`,
-      data: order,
+      data: {
+        ...order,
+        estimatedTime: estimatedTime,
+        minutesRemaining: estimatedTime
+          ? Math.floor(
+              (estimatedTime?.getTime() - new Date()?.getTime()) / 60000,
+            )
+          : null,
+      },
     };
   }
 
@@ -255,7 +281,22 @@ export class OrderController {
       statusCode: HttpStatus.OK,
       message: `Orders succesffully retrieved by status ${orderStatus}.`,
       amountOfOrders: orders.length,
-      data: orders,
+      data: orders.map((el) => {
+        const estimatedTime =
+          new Date(
+            el?.InProgressTimestamp?.getTime() + el?.preparationTime * 1000,
+          ) ?? null;
+
+        return {
+          ...el,
+          estimatedTime: estimatedTime,
+          minutesRemaining: estimatedTime
+            ? Math.floor(
+                (estimatedTime?.getTime() - new Date()?.getTime()) / 60000,
+              )
+            : null,
+        };
+      }),
     };
   }
 

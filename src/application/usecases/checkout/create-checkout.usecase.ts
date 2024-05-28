@@ -55,6 +55,7 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
         status: Status.APPROVED,
       });
     } else {
+      order.status = Status.STARTED;
       order.step = Step.CHECKOUT;
       createdCheckout.status = CheckoutStatus.REJECTED;
     }

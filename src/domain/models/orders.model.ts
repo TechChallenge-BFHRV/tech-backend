@@ -12,6 +12,7 @@ export class OrderModel {
   updatedAt: Date;
   finalPrice?: number;
   preparationTime?: number;
+  InProgressTimestamp?: Date;
 
   constructor(id: number) {
     this.id = id || null;

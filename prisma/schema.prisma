@@ -33,28 +33,29 @@ model Item {
 }
 
 model OrderItems {
-  id          Int @id @default(autoincrement())
-  orderId     Int
-  itemId      Int
-  isActive    Boolean  @default(true) 
+  id       Int     @id @default(autoincrement())
+  orderId  Int
+  itemId   Int
+  isActive Boolean @default(true)
 
-  Order Order @relation(fields: [orderId], references: [id])  
+  Order Order @relation(fields: [orderId], references: [id])
   Item  Item  @relation(fields: [itemId], references: [id])
 }
 
 model Order {
-  id              Int          @id @default(autoincrement())
-  totalPrice      Int?
-  finalPrice      Int?
-  preparationTime Int?
-  status          Status
-  step            Step
-  createdAt       DateTime?    @default(now())
-  updatedAt       DateTime?    @updatedAt
-  customerId      Int?
-  Customer        Customer?    @relation(fields: [customerId], references: [id])
-  orderItems      OrderItems[]
-  Checkout        Checkout[]
+  id                  Int          @id @default(autoincrement())
+  totalPrice          Int?
+  finalPrice          Int?
+  preparationTime     Int?
+  status              Status
+  step                Step
+  createdAt           DateTime?    @default(now())
+  updatedAt           DateTime?    @updatedAt
+  InProgressTimestamp DateTime?
+  customerId          Int?
+  Customer            Customer?    @relation(fields: [customerId], references: [id])
+  orderItems          OrderItems[]
+  Checkout            Checkout[]
 }
 
 model Checkout {

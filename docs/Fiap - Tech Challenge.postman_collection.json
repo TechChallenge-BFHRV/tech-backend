@@ -11,6 +11,27 @@
       "name": "Customer",
       "item": [
         {
+          "name": "Customer - find by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/customer/by-cpf?cpf=42480643832",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "customer", "by-cpf"],
+              "query": [
+                {
+                  "key": "cpf",
+                  "value": "42480643832"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Customer - create",
           "request": {
             "method": "POST",
@@ -33,27 +54,6 @@
             }
           },
           "response": []
-        },
-        {
-          "name": "Customer - find by id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/api/v1/customer/by-cpf?cpf=42480643832",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "v1", "customer", "by-cpf"],
-              "query": [
-                {
-                  "key": "cpf",
-                  "value": "42480643832"
-                }
-              ]
-            }
-          },
-          "response": []
         }
       ]
     },
@@ -65,9 +65,24 @@
           "request": {
             "method": "POST",
             "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/order",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "order"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order - Update customer",
+          "request": {
+            "method": "PUT",
+            "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"pedido #1\"\n}",
+              "raw": "",
               "options": {
                 "raw": {
                   "language": "json"
@@ -75,11 +90,63 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/api/v1/order",
+              "raw": "http://localhost:3000/api/v1/order/update-customer?orderId=8&customerId=1",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3000",
-              "path": ["api", "v1", "order"]
+              "path": ["api", "v1", "order", "update-customer"],
+              "query": [
+                {
+                  "key": "orderId",
+                  "value": "8"
+                },
+                {
+                  "key": "customerId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order - Step foward",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/order/:id/step-forward",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "order", ":id", "step-forward"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order - Step backward",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/order/:id/step-backward",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "order", ":id", "step-backward"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "3"
+                }
+              ]
             }
           },
           "response": []
@@ -112,6 +179,39 @@
           "response": []
         },
         {
+          "name": "Order - Get by Id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Felipe Sousa\",\n  \"email\": \"felipe@mail.com\",\n  \"cpf\": \"42480643832\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/order/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "order", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "7"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Order - Get by Status",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -137,7 +237,7 @@
               "variable": [
                 {
                   "key": "status",
-                  "value": "PENDING"
+                  "value": ""
                 }
               ]
             }
@@ -151,7 +251,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"orderId\": 2,\n  \"itemId\": 3\n}",
+              "raw": "{\n  \"orderId\": 7,\n  \"itemId\": 5\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -174,7 +274,7 @@
             "method": "PUT",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/api/v1/order/remove-from-cart?orderItemId",
+              "raw": "http://localhost:3000/api/v1/order/remove-from-cart?orderItemId=16",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3000",
@@ -182,7 +282,7 @@
               "query": [
                 {
                   "key": "orderItemId",
-                  "value": null
+                  "value": "16"
                 }
               ]
             }
@@ -215,49 +315,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Order - Step foward",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/api/v1/order/:id/step-forward",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "v1", "order", ":id", "step-forward"],
-              "variable": [
-                {
-                  "key": "id",
-                  "value": "1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Order - Step backward",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/api/v1/order/:id/step-backward",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "v1", "order", ":id", "step-backward"],
-              "variable": [
-                {
-                  "key": "id",
-                  "value": "1"
+                  "value": "7"
                 }
               ]
             }
@@ -278,7 +336,7 @@
               "variable": [
                 {
                   "key": "orderId",
-                  "value": "2"
+                  "value": "7"
                 }
               ]
             }
@@ -299,7 +357,7 @@
               "variable": [
                 {
                   "key": "orderId",
-                  "value": "2"
+                  "value": "4"
                 }
               ]
             }
@@ -320,7 +378,7 @@
               "variable": [
                 {
                   "key": "orderId",
-                  "value": "2"
+                  "value": "4"
                 }
               ]
             }
@@ -403,6 +461,39 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Item - Get by category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Felipe Sousa\",\n  \"email\": \"felipe@mail.com\",\n  \"cpf\": \"42480643832\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/item/category/:category",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "item", "category", ":category"],
+              "variable": [
+                {
+                  "key": "category",
+                  "value": "ACOMPANHAMENTO"
+                }
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -416,7 +507,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"orderId\": 2\n}",
+              "raw": "{\n    \"orderId\": 7\n}",
               "options": {
                 "raw": {
                   "language": "json"

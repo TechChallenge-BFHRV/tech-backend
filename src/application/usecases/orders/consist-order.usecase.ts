@@ -2,19 +2,20 @@ import { Inject, Injectable } from '@nestjs/common';
 import { OrderModel } from '../../../domain/models/orders.model';
 import { OrderRepositoryPort } from '../../../domain/ports/order.repository.port';
 import { IUseCase } from '../usecase';
-import { ConsistOrderUseCase } from './consist-order.usecase';
 
 @Injectable()
-export class GetCartOrderUseCase implements IUseCase<OrderModel> {
+export class ConsistOrderUseCase implements IUseCase<OrderModel> {
   constructor(
     @Inject('OrderRepositoryPort')
     private readonly orderRepository: OrderRepositoryPort,
-    private readonly consistOrderUseCase: ConsistOrderUseCase,
   ) {}
   async execute(orderId: number): Promise<OrderModel> {
     let order = await this.orderRepository.getById(orderId);
 
-    order = await this.consistOrderUseCase.execute(order.id);
+    order = await this.calculateFinalPrice(order);
+    order = await this.calculatePreparationTime(order);
+
+    await this.orderRepository.update(order.id, order);
 
     return order;
   }
@@ -48,7 +49,7 @@ export class GetCartOrderUseCase implements IUseCase<OrderModel> {
   }
 
   async getComboDiscount(order: OrderModel): Promise<number> {
-    const minimumComboCategory = 3;
+    const minimumComboCategory = 4;
     const maxDiscount = 0.15;
     const discountPerCombo = 0.05;
 

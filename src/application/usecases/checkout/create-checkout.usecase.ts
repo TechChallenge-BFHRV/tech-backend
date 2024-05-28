@@ -4,6 +4,7 @@ import { CheckoutModel } from '../../../domain/models/checkout.model';
 import { CheckoutRepositoryPort } from '../../../domain/ports/checkout.repository.port';
 import { OrderRepositoryPort } from '../../../domain/ports/order.repository.port';
 import { PaymentGatewayPort } from '../../../domain/ports/payment.gateway.port';
+import { ConsistOrderUseCase } from '../orders/consist-order.usecase';
 import { OrderQueueUseCase } from '../orders/queue/order-queue.usecase';
 import { IUseCase } from '../usecase';
 
@@ -17,10 +18,11 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
     @Inject('PaymentGatewayPort')
     private readonly paymentGateway: PaymentGatewayPort,
     private readonly orderQueueUseCase: OrderQueueUseCase,
+    private readonly consistOrderUseCase: ConsistOrderUseCase,
   ) {}
 
   async execute(checkoutRequest: CheckoutModel): Promise<CheckoutModel> {
-    const order = await this.orderRepository.getById(checkoutRequest.orderId);
+    let order = await this.orderRepository.getById(checkoutRequest.orderId);
 
     if (order.status !== 'STARTED') {
       throw new Error('Order must be in STARTED status to create a checkout');
@@ -28,6 +30,10 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
 
     if (order.orderItems.some((item) => item.isActive) === false) {
       throw new Error('Order must have at least one item to create a checkout');
+    }
+
+    if (!order.preparationTime || !order.finalPrice) {
+      order = await this.consistOrderUseCase.execute(order.id);
     }
 
     checkoutRequest.customerId = order.customerId;

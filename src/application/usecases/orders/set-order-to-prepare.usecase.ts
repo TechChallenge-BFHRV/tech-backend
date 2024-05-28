@@ -21,6 +21,7 @@ export class SetOrderToPrepareUseCase implements IUseCase<OrderModel> {
     }
 
     order.status = Status.IN_PROGRESS;
+    order.InProgressTimestamp = new Date();
 
     const updatedOrder = await this.orderRepository.update(orderId, order);
     return updatedOrder;

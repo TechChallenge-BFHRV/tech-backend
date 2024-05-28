@@ -1,5 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsCPF } from 'class-validator-cpf';
 import { CustomerModel } from '../../../domain/models/customers.model';
 export class CreateCustomerDTO implements CustomerModel {
   orders?: number[];
@@ -21,5 +22,6 @@ export class CreateCustomerDTO implements CustomerModel {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
+  @IsCPF()
   cpf?: string;
 }

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CheckoutStatus, Status } from '@prisma/client';
+import { CheckoutStatus, Status, Step } from '@prisma/client';
 import { CheckoutModel } from '../../../domain/models/checkout.model';
 import { CheckoutRepositoryPort } from '../../../domain/ports/checkout.repository.port';
 import { OrderRepositoryPort } from '../../../domain/ports/order.repository.port';
@@ -33,6 +33,7 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
     checkoutRequest.customerId = order.customerId;
     checkoutRequest.status = CheckoutStatus.PENDING;
     order.status = Status.PENDING;
+    order.step = Step.PAYMENT_REQUEST;
 
     await this.orderRepository.update(order.id, order);
     await this.orderQueueUseCase.addOrderToQueue({
@@ -46,18 +47,16 @@ export class CreateCheckoutUseCase implements IUseCase<CheckoutModel> {
     const paymentSucceed = await this.paymentGateway.execute(order.finalPrice);
 
     if (paymentSucceed) {
+      order.status = Status.APPROVED;
+      order.step = Step.COMPLETED;
       createdCheckout.status = CheckoutStatus.APPROVED;
       await this.orderQueueUseCase.addOrderToQueue({
         orderId: order.id,
         status: Status.APPROVED,
       });
     } else {
-      order.status = Status.CANCELLED;
+      order.step = Step.CHECKOUT;
       createdCheckout.status = CheckoutStatus.REJECTED;
-      await this.orderQueueUseCase.addOrderToQueue({
-        orderId: order.id,
-        status: Status.CANCELLED,
-      });
     }
 
     await this.orderRepository.update(order.id, order);

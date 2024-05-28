@@ -10,9 +10,15 @@ export class CreateOrderUseCase implements IUseCase<OrderModel> {
     @Inject('OrderRepositoryPort')
     private readonly orderRepository: OrderRepositoryPort,
   ) {}
-  async execute(order: OrderModel): Promise<OrderModel> {
-    order.step = Step.START;
-    order.status = Status.STARTED;
+  async execute(): Promise<OrderModel> {
+    const order: OrderModel = {
+      step: Step.START,
+      status: Status.STARTED,
+      id: 0,
+      totalPrice: null,
+      createdAt: undefined,
+      updatedAt: undefined,
+    };
 
     const createdOrder = await this.orderRepository.create(order);
 

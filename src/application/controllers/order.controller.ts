@@ -11,7 +11,6 @@ import {
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Status } from '@prisma/client';
 import { AddItemToOrderDTO } from '../../infrastructure/dto/order-item/add-item-to-order-dto';
-import { CreateOrderDTO } from '../../infrastructure/dto/order/create-order-dto';
 import {
   AddItemToOrderUseCase,
   GetAllOrdersUseCase,
@@ -147,8 +146,8 @@ export class OrderController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid input data.',
   })
-  async createOrder(@Body() order: CreateOrderDTO) {
-    const orderCreated = await this.createOrderUseCase.execute(order);
+  async createOrder() {
+    const orderCreated = await this.createOrderUseCase.execute();
     return {
       statusCode: HttpStatus.CREATED,
       message: 'Order created successfully',

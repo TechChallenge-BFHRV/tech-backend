@@ -15,6 +15,7 @@ import {
   GetCartOrderUseCase,
   GetCustomerByCpfUseCase,
   GetItemUseCase,
+  GetItemsPerCategoryUseCase,
   GetOrderByIdUseCase,
   GetOrdersByStatusUseCase,
   OrderStepBackwardUseCase,
@@ -66,6 +67,7 @@ import { OrderProcessor } from './usecases/orders/queue/processor/order.processo
     OrderQueueUseCase,
     OrderProcessor,
     SetOrderCustomerUseCase,
+    GetItemsPerCategoryUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -90,6 +92,7 @@ import { OrderProcessor } from './usecases/orders/queue/processor/order.processo
     OrderQueueUseCase,
     OrderProcessor,
     SetOrderCustomerUseCase,
+    GetItemsPerCategoryUseCase,
   ],
   controllers: [
     CustomerController,

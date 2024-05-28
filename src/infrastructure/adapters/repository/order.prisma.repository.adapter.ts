@@ -82,4 +82,18 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     });
     return orders;
   }
+
+  async setOrderCustomer(
+    orderId: number,
+    customerId: number,
+  ): Promise<OrderModel> {
+    const updatedOrderCustomer = await this.prisma.order.update({
+      where: { id: orderId },
+      data: {
+        customerId,
+      },
+    });
+
+    return updatedOrderCustomer;
+  }
 }

@@ -26,6 +26,7 @@ import {
 import { SetItemToOrderUseCase } from '../usecases/order-items/set-item.usecase';
 import { CreateOrderUseCase } from '../usecases/orders/create-order-usecase';
 import { GetOrderByIdUseCase } from '../usecases/orders/get-order-by-id.usecase';
+import { SetOrderCustomerUseCase } from '../usecases/orders/set-order-customer.usecase';
 
 @ApiTags('order')
 @Controller('order')
@@ -44,6 +45,7 @@ export class OrderController {
     private readonly setOrderToReadyUseCase: SetOrderToReadyUseCase,
     private readonly setOrderToFinishedUseCase: SetOrderToFinishedUseCase,
     private readonly setOrderToCancelledUseCase: SetOrderToCancelledUseCase,
+    private readonly setOrderCustomerUseCase: SetOrderCustomerUseCase,
   ) {}
 
   @Get()
@@ -134,6 +136,31 @@ export class OrderController {
       statusCode: HttpStatus.ACCEPTED,
       message: 'Order Item updated successfully',
       data: orderItemUpdated,
+    };
+  }
+
+  @Put('update-customer-cart')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Order customer updated successfully',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid input data.',
+  })
+  async setOrderCustomerId(
+    @Query('orderId') orderId: number,
+    @Query('customerId') customerId: number,
+  ) {
+    const orderUpdatedCustomer = await this.setOrderCustomerUseCase.execute(
+      orderId,
+      customerId,
+    );
+
+    return {
+      statusCode: HttpStatus.ACCEPTED,
+      message: 'Order customer updated successfully',
+      data: orderUpdatedCustomer,
     };
   }
 

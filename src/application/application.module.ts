@@ -21,6 +21,7 @@ import {
   OrderStepForwardUseCase,
   SetCustomerCpfUseCase,
   SetItemToOrderUseCase,
+  SetOrderCustomerUseCase,
   SetOrderToCancelledUseCase,
   SetOrderToFinishedUseCase,
   SetOrderToPrepareUseCase,
@@ -64,6 +65,7 @@ import { OrderProcessor } from './usecases/orders/queue/processor/order.processo
     SetOrderToCancelledUseCase,
     OrderQueueUseCase,
     OrderProcessor,
+    SetOrderCustomerUseCase,
   ],
   exports: [
     CreateCustomerUseCase,
@@ -87,6 +89,7 @@ import { OrderProcessor } from './usecases/orders/queue/processor/order.processo
     SetOrderToCancelledUseCase,
     OrderQueueUseCase,
     OrderProcessor,
+    SetOrderCustomerUseCase,
   ],
   controllers: [
     CustomerController,

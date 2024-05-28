@@ -49,7 +49,7 @@ export class ConsistOrderUseCase implements IUseCase<OrderModel> {
   }
 
   async getComboDiscount(order: OrderModel): Promise<number> {
-    const minimumComboCategory = 3;
+    const minimumComboCategory = 4;
     const maxDiscount = 0.15;
     const discountPerCombo = 0.05;
 

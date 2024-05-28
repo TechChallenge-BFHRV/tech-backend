@@ -165,7 +165,7 @@ export class OrderController {
     };
   }
 
-  @Put('update-customer-cart')
+  @Put('update-customer')
   @ApiResponse({
     status: HttpStatus.ACCEPTED,
     description: 'Order customer updated successfully',

@@ -21,7 +21,7 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
 
   update(id: number, data: OrderModel): Promise<OrderModel> {
     const updatedOrder = this.prisma.order.update({
-      where: { id: data.id },
+      where: { id: id },
       data: {
         totalPrice: data.totalPrice,
         status: data.status,
@@ -29,6 +29,7 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
         preparationTime: data.preparationTime,
         finalPrice: data.finalPrice,
         customerId: data.customerId,
+        InProgressTimestamp: data.InProgressTimestamp,
       },
     });
     return updatedOrder;

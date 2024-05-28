@@ -15,6 +15,7 @@ export class CreateCustomerDTO implements CustomerModel {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
+  @IsEmail()
   email?: string;
 
   @ApiPropertyOptional()

@@ -1,5 +1,6 @@
 import {
   ArgumentsHost,
+  BadRequestException,
   Catch,
   ExceptionFilter,
   HttpException,
@@ -30,6 +31,14 @@ export default class HttpExceptionFilter implements ExceptionFilter<Error> {
       return {
         message: exception.message,
         status: 400,
+      };
+    }
+    if (exception instanceof BadRequestException) {
+      const message = exception.getResponse();
+      const status = exception.getStatus();
+      return {
+        message,
+        status,
       };
     }
     Logger.log(exception.stack);

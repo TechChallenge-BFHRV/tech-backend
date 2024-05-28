@@ -4,6 +4,7 @@ import compression from '@fastify/compress';
 import helmet from '@fastify/helmet';
 import { fastifyRequestContext } from '@fastify/request-context';
 import {
+  BadRequestException,
   ClassSerializerInterceptor,
   INestApplication,
   Logger,
@@ -97,6 +98,15 @@ async function bootstrap() {
       transform: true,
       whitelist: true,
       forbidUnknownValues: true,
+      exceptionFactory: (errors) => {
+        const errorMessages = {};
+        errors.forEach((error) => {
+          errorMessages[error.property] = Object.values(error.constraints)
+            .join('. ')
+            .trim();
+        });
+        return new BadRequestException(errorMessages);
+      },
     }),
   );
   app.useGlobalInterceptors(

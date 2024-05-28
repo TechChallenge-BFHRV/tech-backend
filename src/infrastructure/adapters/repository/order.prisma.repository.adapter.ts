@@ -39,6 +39,7 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
       where: { id: id },
       include: {
         orderItems: {
+          where: { isActive: true },
           include: {
             Item: true,
           },
@@ -52,6 +53,7 @@ export class PrismaOrderRepositoryAdapter implements OrderRepositoryPort {
     const orders = this.prisma.order.findMany({
       include: {
         orderItems: {
+          where: { isActive: true },
           include: {
             Item: true,
           },

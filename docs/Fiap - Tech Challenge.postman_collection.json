@@ -65,21 +65,54 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"pedido #1\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
               "raw": "http://localhost:3000/api/v1/order",
               "protocol": "http",
               "host": ["localhost"],
               "port": "3000",
               "path": ["api", "v1", "order"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order - Step foward",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/order/:id/step-forward",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "order", ":id", "step-forward"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order - Step backward",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/order/:id/step-backward",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "order", ":id", "step-backward"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
             }
           },
           "response": []
@@ -107,6 +140,39 @@
               "host": ["localhost"],
               "port": "3000",
               "path": ["api", "v1", "order"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Order - Get by Id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Felipe Sousa\",\n  \"email\": \"felipe@mail.com\",\n  \"cpf\": \"42480643832\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/order/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "order", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "7"
+                }
+              ]
             }
           },
           "response": []
@@ -212,48 +278,6 @@
               "host": ["localhost"],
               "port": "3000",
               "path": ["api", "v1", "order", ":id", "cart"],
-              "variable": [
-                {
-                  "key": "id",
-                  "value": "1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Order - Step foward",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/api/v1/order/:id/step-forward",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "v1", "order", ":id", "step-forward"],
-              "variable": [
-                {
-                  "key": "id",
-                  "value": "1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Order - Step backward",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3000/api/v1/order/:id/step-backward",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "v1", "order", ":id", "step-backward"],
               "variable": [
                 {
                   "key": "id",
@@ -400,6 +424,39 @@
               "host": ["localhost"],
               "port": "3000",
               "path": ["api", "v1", "item"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Item - Get by category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Felipe Sousa\",\n  \"email\": \"felipe@mail.com\",\n  \"cpf\": \"42480643832\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/item/category/:category",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "item", "category", ":category"],
+              "variable": [
+                {
+                  "key": "category",
+                  "value": "ACOMPANHAMENTO"
+                }
+              ]
             }
           },
           "response": []

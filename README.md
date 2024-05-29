@@ -5,7 +5,8 @@
 
 ![Screenshot of Business Process achieved through Event Storming in Miro](thumbnail.png)
 
-https://miro.com/app/board/uXjVKVo2egw=/
+[Miro Link](https://miro.com/app/board/uXjVKVo2egw=/)
+[GitHub Link](https://github.com/TechChallenge-BFHRV/tech-backend)
 
 ## Introduction
 
@@ -48,4 +49,5 @@ To run the TECH-BACKEND project on your local machine, follow these steps:
 6. **Start the Application**: Use `pnpm run start` to start the application.
 
 You can import all endpoint configurations from the `/docs` folder into Postman for API testing.
+
 

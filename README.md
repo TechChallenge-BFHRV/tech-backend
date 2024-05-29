@@ -3,9 +3,10 @@
 
 ## Business Process
 
-![Screenshot of Business Process achieved through Event Storming in Miro](thumbnail.png)
+![Thumbnail of Business Process achieved through Event Storming in Miro](thumbnail.png)
 
 [Miro Link](https://miro.com/app/board/uXjVKVo2egw=/)
+
 [GitHub Link](https://github.com/TechChallenge-BFHRV/tech-backend)
 
 ## Introduction
@@ -42,11 +43,11 @@ API documentation is available at [Local API Docs](http://localhost:3000/docs) o
 
 To run the TECH-BACKEND project on your local machine, follow these steps:
 
-1. **Environment Setup**: Create a `.env` file based on the provided `.env-local` template.
-2. **Install Dependencies**: Run `pnpm install` to install required dependencies.
+1. **Environment Setup**: Create a `.env` file based on the provided `.env.example` template.
+2. **Install Dependencies**: Run `npm install` to install required dependencies.
 3. **Build Containers**: Use `docker-compose build` to build the Docker containers.
 4. **Start Containers**: Execute `docker-compose up -d` to start the containers in detached mode.
-6. **Start the Application**: Use `pnpm run start` to start the application.
+6. **Start the Application**: Use `npm run start` to start the application.
 
 You can import all endpoint configurations from the `/docs` folder into Postman for API testing.
 

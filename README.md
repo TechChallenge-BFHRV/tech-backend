@@ -1,17 +1,37 @@
 
+# FIAP Tech Challenge 7SOAT - Tech Challenge #1
+
+## Business Process
+
+![Screenshot of Business Process achieved through Event Storming in Miro](thumbnail.png)
+
+https://miro.com/app/board/uXjVKVo2egw=/
+
 ## Introduction
 
-Tech Challenge
+Development of an Order system for a restaurant developed with TypeScript, NestJS, Prisma and PostgreSQL.
 
-## Technologies Used
+## Members
+
+- Felipe José Cardoso de Sousa (Discord: **Felipe Sousa - RM355595**)
+
+- Robson Batista da Silva (Discord: **Robson - RM356014**)
+
+- Vinicius Pereira (Discord: **Vinicius Pereira - RM355809**)
+
+- Henrique Perez Bego (Discord: **Henrique Bego - RM354844**)
+
+- Breno Silva Sobral (Discord: **Breno - RM355234**)
+
+## Technologies
 
 - Docker
 - Fastify and NestJS
-- JestJs (Testing framework)
-- PostgreSQL (Database)
+- Prisma
+- Jest
+- PostgreSQL
 - Logging with Winston
-- yarn
-- Other Libraries: Prettier (Code formatter), ESLint (Linter)
+- Prettier (Code formatter), ESLint (Linter)
 
 ## Requirements
 
@@ -21,9 +41,9 @@ Tech Challenge
 
 API documentation is available at [Local API Docs](http://localhost:3000/docs) once the project is running.
 
-## Getting Started
+## Getting started
 
-To run the NESTJS TEMPLATE project on your local machine, follow these steps:
+To run the TECH-BACKEND project on your local machine, follow these steps:
 
 1. **Environment Setup**: Create a `.env` file based on the provided `.env-local` template.
 2. **Install Dependencies**: Run `pnpm install` to install required dependencies.
@@ -32,6 +52,4 @@ To run the NESTJS TEMPLATE project on your local machine, follow these steps:
 6. **Start the Application**: Use `pnpm run start` to start the application.
 
 You can import all endpoint configurations from the `/docs` folder into Postman for API testing.
-
-## Testing
 

@@ -14,13 +14,9 @@ Development of an Order system for a restaurant developed with TypeScript, NestJ
 ## Members
 
 - Felipe José Cardoso de Sousa (Discord: **Felipe Sousa - RM355595**)
-
 - Robson Batista da Silva (Discord: **Robson - RM356014**)
-
 - Vinicius Pereira (Discord: **Vinicius Pereira - RM355809**)
-
 - Henrique Perez Bego (Discord: **Henrique Bego - RM354844**)
-
 - Breno Silva Sobral (Discord: **Breno - RM355234**)
 
 ## Technologies
